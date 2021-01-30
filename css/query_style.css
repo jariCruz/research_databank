@@ -105,3 +105,8 @@ div.modal-hover:hover {
 .swal-text {
   text-align: center;
 }
+
+/* Read more */
+#readMore {
+  display: none;
+}

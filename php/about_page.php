@@ -301,21 +301,15 @@ require "header.php";
   <!-- Content -->
   <div class="container">
     <div class="ml-md-5 mr-md-5 mb-5 p-5 text-center">
-      <h5 class="header-font subtitle-size-1">Our Goal</h5>
-      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-      <h5 class="header-font subtitle-size-1 pt-5">How we do things</h5>
-      <p>Amet, expedita tempora repellat quis hic rem neque quae qui
-        inventore enim eveniet aperiam modi tempore, rerum culpa quas voluptates,
-        exercitationem corporis! Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        Amet, expedita tempora repellat quis hic rem neque quae qui
-        inventore enim eveniet aperiam modi tempore, rerum culpa quas voluptates,
-        exercitationem corporis!</p>
 
-        <li>Lorem ipsum</li>
-        <li>Lorem ipsum</li>
-        <li>Lorem ipsum</li>
-        <li>Lorem ipsum</li>
-        <li>Lorem ipsum</li>
+    <!-- Information changed -->
+      <h5 class="header-font subtitle-size-1">Our Goal</h5>
+      <p>Is to lead aspiring researchers towards professionalism by sharing their studies on the entire campus.<br>And to access different kinds of researches for their studies or just simple curiosity.</p>
+      <h5 class="header-font subtitle-size-1 pt-5">What is Research DB?</h5>
+      <p>Bulacan State University - Sarmiento Campus Research Data Bank (BSU-SC Research DB) is a research study online repository.
+          Bonafide students, alumni, and professors are the only ones who can fully access this website.
+          Athough it is a limited-access website, We, the research db team committed ourselves for the researches to not just be available on the entire campus
+          but also to present it with fashion.</p>
 
     </div>
   </div>
@@ -325,8 +319,12 @@ require "header.php";
               bg-night text-white">
     <div class="container">
 
-      <h2 class="header-font">Lorem lorem ipsum</h2>
-      <p>Lorem ipsum dolor sit amet. Lorem ipsum lorem ipsum</p>
+      <!-- Information modified -->
+      <!-- Note: Change all jumbotron -->
+      <h2 class="header-font">Bond With Us!</h2>
+      <p>Explore, investigate, analyze, experiment, and test now.<br>
+          Join the aspiring professional researchers at Bulacan State University - Sarmiento Campus.</p>
+    </div>
     </div>
   </div>
 

@@ -91,3 +91,8 @@ display: none;
   background-color: #e6fff7;
 
 } 
+
+/* Read more */
+#readMore {
+  display: none;
+}

@@ -119,7 +119,8 @@
     /* Search input width */
     .sm-width{
 
-        width: 15rem;
+        /* Width recalibrate */
+        width: 17rem;
     }
 }
 

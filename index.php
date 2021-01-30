@@ -345,23 +345,29 @@ include "php/server.php";
               echo "0 results";
             }
             ?>
-            <h6>Most Viewed:</h6>
+            <!-- Margin added -->
+            <h6 class="mr-2">Most Viewed:</h6>
 
             
-            <div class="ml-2">
-              <a href="#"><?php echo $mostViewed[1]; ?></a>
+            <div>
+            <!-- Underline link added -->
+              <a href="#"><?php echo '<u>'.$mostViewed[1].'</u>'; ?></a>
             </div>
 
-            <span class="ml-2 mr-2">|</span>
-
+            <!-- Margin changed to space -->
+            <span>&ThickSpace;&ThickSpace;</span>
+            
             <div>
-              <a href="#"><?php echo $mostViewed[2]; ?></a>
+            <!-- Underline link added -->
+              <a href="#"><?php echo '<u>'.$mostViewed[2].'</u>'; ?></a>
             </div>
 
-            <span class="ml-2 mr-2">|</span>
+            <!-- Margin changed to space -->
+            <span>&ThickSpace;&ThickSpace;</span>
 
             <div>
-              <a href="#"><?php echo $mostViewed[3]; ?></a>
+            <!-- Underline link added -->
+              <a href="#"><?php echo '<u>'.$mostViewed[3].'</u>'; ?></a>
             </div>
             </ul>
 
@@ -378,9 +384,12 @@ include "php/server.php";
   <div class="jumbotron jumbotron-fluid
                 jumbotron-bg-black text-white">
     <div class="container">
-
-      <h2 class="header-font">Lorem lorem ipsum</h2>
-      <p>Lorem ipsum dolor sit amet. Lorem ipsum lorem ipsum</p>
+      
+      <!-- Information modified -->
+      <!-- Note: Change all jumbotron -->
+      <h2 class="header-font">Bond With Us!</h2>
+      <p> Explore, investigate, analyze, experiment, and test now.<br>
+          Join the aspiring professional researchers at Bulacan State University - Sarmiento Campus.</p>
     </div>
   </div>
 

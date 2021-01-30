@@ -395,7 +395,9 @@ if (isset($_GET['query'])) {
           } ?>
 
         </div>
-        <hr>
+
+        <!-- Margin bottom change to 0 -->
+        <hr class="mb-0">
 
     <!-- Here is the whole research study
                 This part includes the research study details
@@ -406,7 +408,8 @@ if (isset($_GET['query'])) {
         if (mysqli_num_rows($result) > 0) {
           while ($row = mysqli_fetch_array($result)) {
         ?>
-            <div class="cards hBg mt-n3
+            <!-- Negative margin top removed -->
+            <div class="cards hBg
                     border border-left-0
                             border-right-0
                             border-top-0
@@ -417,13 +420,29 @@ if (isset($_GET['query'])) {
 
                 <!-- Research studies information -->
                 <div class="row">
-                  <div class="col-9">
+
+                  <!-- Column chage to auto -->
+                  <div class="col">
                     <h4 class="sm-body-font-size"><?php echo $row["Title"] ?></h4><!-- Research title -->
 
                     <!-- Author name -->
                     <a href="#" class="cLink"><?php echo $row["Author"] ?></a>
 
                     <p><?php echo $row['Abstract'] ?></p>
+
+                    <!-- Abstract contraction -->
+                    <!-- For read more and read less -->
+                    <p>Lorem ipsum
+                      <span id="dots">...</span>
+                      <!-- id "readMore" is not working properly when 2 or more research study displays -->
+                      <!-- <span id="<php echo $row['RS_ID'];?>"> dolor sit amet</span> -->
+                      <span id="readMore"> dolor sit amet</span>
+                      <a href="#" onclick="readAbstract()" id="readBtn" class="cLink">Read more...</a>
+
+                    </p>
+
+                    <!-- Read more and less link function -->
+                    <script src="../js/readAbstract_function.js"></script>
 
                     <!-- Statistics for small media -->
                     <p id="miniStats_<?php echo $row['RS_ID'] ?>"><small class="sm-show-stat">
@@ -533,8 +552,10 @@ if (isset($_GET['query'])) {
 
                   <!-- Statistics for large media -->
 
-                  <div class="col-3 sm-hide-stat">
-                    <div class=" pt-2 text-ash">
+
+                  <!-- Column changed -->
+                  <div class="col-2 sm-hide-stat">
+                    <div class="pt-2 text-ash">
                       <p id="viewCounts_<?php echo $row['RS_ID'] ?>" class="text-center smaller">
                         <?php if ($row['Views'] === 0) {  echo '0';} else { echo $row['Views'];} ?>
                         <br>Readers</p><!-- count of views -->

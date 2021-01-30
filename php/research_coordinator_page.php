@@ -65,7 +65,6 @@ if (isset($_GET['query'])) {
 </head>
 
 <body>
-
     <!-- Header -->
 
     <nav class="navbar navbar-expand-md navbar-light bg-light">
@@ -90,20 +89,12 @@ if (isset($_GET['query'])) {
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item">
-                        <a class="nav-link" href="../index.php">Home</a>
+                        <!-- change link -->
+                        <a class="nav-link" href="research_coordinator_page.php">Home</a>
 
                     </li>
-
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="about_page.php">About</a>
-
-                    </li>
-
-                    <li class="nav-item">
-                        <a class="nav-link" href="contact_page.php">Contact</a>
-
-                    </li>
+               
+                    <!-- Remove links -->
 
                     <!-- Dropdown for Logged-in -->
                     <!--
@@ -649,158 +640,206 @@ if (isset($_GET['query'])) {
                             } ?>
 
                         </div>
-                        <hr>
+
+                        <!-- 0 Margin bottom added -->
+                        <hr class="mb-0">
 
                         <!-- Here is the whole research study
                         This part includes the research study details
                             (titles, authors, abstract, view pdf, download file,
                             and statistics for reads and downloads)-->
-    <div id="research-livesearch1">
-                        <?php
-        if (mysqli_num_rows($result) > 0) {
-          while ($row = mysqli_fetch_array($result)) {
-        ?>
-            <div class="cards hBg mt-n3 border border-left-0 border-right-0 border-top-0 border-semilightblue">
+                        <!-- tab added -->
+                        <div id="research-livesearch1">
+                                            <?php
+                            if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_array($result)) {
+                            ?>
 
-              <div class="card-body">
+                                <!------------------------
+                                    Negative margin top removed
+                                -------------------------->
+                                <div class="cards hBg border border-left-0 border-right-0 border-top-0 border-semilightblue">
 
-
-                <!-- Research studies information -->
-                <div class="row">
-                  <div class="col-9">
-                    <h4 class="sm-body-font-size"><?php echo $row["Title"] ?></h4><!-- Research title -->
-
-                    <!-- Author name -->
-                    <a href="#" class="cLink"><?php echo $row["Author"] ?></a>
-
-                    <p><?php echo $row['Abstract'] ?></p>
-
-                    <!-- Statistics for small media -->
-                    <p><small class="sm-show-stat">5 Views | 5 Downloads</small></p>
+                                <div class="card-body">
 
 
-                    <!-- show this when a user is logged in -->
-                    <?php if (isset($_SESSION['user_id'])) { ?>
+                                    <!-- Research studies information -->
+                                    <div class="row">
 
-                      <a id="view_href_<?php echo $row['RS_ID'] ?>" type="button" 
-                        onclick="addDownload(<?php echo $row['RS_ID'] ?>,'download.php?file=<?php echo $row['File'] ?>')" 
-                        class="fa fa-download btn btn-outline-primary sm-btn-font-size cLink"> Download</a><!-- Download button -->
+                                    <!------------------------
+                                        Column set to auto
+                                    -------------------------->
+                                    <div class="col">
+                                        <h4 class="sm-body-font-size"><?php echo $row["Title"] ?></h4><!-- Research title -->
 
-                      <a id="download_href_<?php echo $row['RS_ID'] ?>" type="button" 
-                        onclick="addView(<?php echo $row['RS_ID'] ?>,'../Research_Studies/<?php echo $row['File'] ?>')" 
-                        class="fa fa-file btn btn-outline-primary sm-btn-font-size cLink"> View PDF</a><!-- View button -->
+                                        <!-- Author name -->
+                                        <a href="#" class="cLink"><?php echo $row["Author"] ?></a>
 
-                    <?php } else { ?>
+                                        <p><?php echo $row['Abstract'] ?></p>
 
-                      <!-- show this when user isn't logged in -->
+                                        <!------------------------------- 
+                                            Abstract contraction
+                                            For read more and read less
+                                        --------------------------------->
+                                        <p>Lorem ipsum
+                                        <span id="dots">...</span>
+                                        <!-- id "readMore" is not working properly when 2 or more research study displays -->
+                                        <!-- <span id="<php echo $row['RS_ID'];?>"> dolor sit amet</span> -->
+                                        <span id="readMore"> dolor sit amet</span>
+                                        <a href="#" onclick="readAbstract()" id="readBtn" class="cLink">Read more...</a>
 
-                      <a id="view_href_<?php echo $row['RS_ID'] ?>" type="button" onclick="needToLoginDownload()" class="fa fa-download btn btn-outline-primary sm-btn-font-size cLink"> Download</a><!-- Download button -->
+                                        </p>
 
-                      <a id="download_href_<?php echo $row['RS_ID'] ?>" type="button" onclick="needToLoginView()" class="fa fa-file btn btn-outline-primary sm-btn-font-size cLink"> View PDF</a><!-- View button -->
+                                        <!-- Read more and less link function -->
+                                        <script src="../js/readAbstract_function.js"></script>
 
-                    <?php } ?>
+                                        <!-- This might help
+                                            Use HTML's anchors:
+
+                                            Main Page:
+
+                                            <a href="sample.html#sushi">Sushi</a>
+                                            <a href="sample.html#bbq">BBQ</a>
+                                            Sample Page:
+
+                                            <div id='sushi'><a name='sushi'></a></div>
+                                            <div id='bbq'><a name='bbq'></a></div> 
+                                        -->
+
+                                        <!-- Statistics for small media -->
+                                        <p><small class="sm-show-stat">5 Views | 5 Downloads</small></p>
 
 
+                                        <!-- show this when a user is logged in -->
+                                        <?php if (isset($_SESSION['user_id'])) { ?>
 
-                    <!-- Modal -->
-                    <div class="modal fade" id="cModalContent_<?php echo $row['RS_ID']; ?>" role="dialog">
-                      <div class="modal-dialog modal-dialog-scrollable">
+                                        <a id="view_href_<?php echo $row['RS_ID'] ?>" type="button" 
+                                            onclick="addDownload(<?php echo $row['RS_ID'] ?>,'download.php?file=<?php echo $row['File'] ?>')" 
+                                            class="fa fa-download btn btn-outline-primary sm-btn-font-size cLink"> Download</a><!-- Download button -->
 
-                        <!-- Modal header -->
-                        <div class="modal-content">
-                          <div class="modal-title">
+                                        <a id="download_href_<?php echo $row['RS_ID'] ?>" type="button" 
+                                            onclick="addView(<?php echo $row['RS_ID'] ?>,'../Research_Studies/<?php echo $row['File'] ?>')" 
+                                            class="fa fa-file btn btn-outline-primary sm-btn-font-size cLink"> View PDF</a><!-- View button -->
 
-                            <div class="modal-header">
-                              <div class="btn-group">
-                                <!-- Download PDF (logged in)-->
-                                <?php if (isset($_SESSION['user_id'])) { ?>
-                                  <button type="button" onclick="addDownload(<?php echo $row['RS_ID'] ?>,'download.php?file=<?php echo $row['File'] ?>')" class="btn btn-outline-dark fa fa-download sm-btn-font-size"> Download</button><!-- Download button -->
+                                        <?php } else { ?>
 
-                                  <!-- View PDF (logged in)-->
-                                  <button type="submit" onclick="addView(<?php echo $row['RS_ID'] ?>,'../Research_Studies/<?php echo $row['File'] ?>')" class="btn btn-outline-dark fa fa-file sm-btn-font-size"> View PDF</button><!-- View button -->
-                                <?php } else { ?>
-                                  <!-- Download PDF -->
-                                  <button type="button" onclick="needToLoginDownload()" class="btn btn-outline-dark fa fa-download sm-btn-font-size"> Download</button><!-- Download button -->
+                                        <!-- show this when user isn't logged in -->
 
-                                  <!-- View PDF -->
-                                  <button type="submit" onclick="needToLoginView()" class="btn btn-outline-dark fa fa-file sm-btn-font-size"> View PDF</button><!-- View button -->
-                                <?php } ?>
+                                        <a id="view_href_<?php echo $row['RS_ID'] ?>" type="button" onclick="needToLoginDownload()" class="fa fa-download btn btn-outline-primary sm-btn-font-size cLink"> Download</a><!-- Download button -->
 
-                              </div>
-                              <button type="button" class="close" data-dismiss="modal">&times;</button>
-                            </div>
+                                        <a id="download_href_<?php echo $row['RS_ID'] ?>" type="button" onclick="needToLoginView()" class="fa fa-file btn btn-outline-primary sm-btn-font-size cLink"> View PDF</a><!-- View button -->
 
-                          </div>
-
-                          <!-- Modal details -->
-
-                          <div class="modal-body">
-                            <!-- Make the title color black -->
-                            <!-- Make the hover color blue -->
-
-                            <div class="cfont cs-2"><?php echo $row['Title'] ?></div><!-- research title -->
-                            <br>
-                            <div><?php echo $row['Author'] ?></div><!-- author name -->
-
-                            <hr class="bg-muted">
-
-                            <p class="text-uppercase">Abstract</p>
-
-                            <p><?php echo $row['Abstract'] ?></p><!-- research abstract -->
-
-                          </div>
-
-                          <div class="modal-footer">
-                            <button type="button" class="btn btn-outline-danger sm-btn-font-size" data-dismiss="modal">Close</button>
-
-                          </div>
+                                        <?php } ?>
 
 
 
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="cModalContent_<?php echo $row['RS_ID']; ?>" role="dialog">
+                                        <div class="modal-dialog modal-dialog-scrollable">
 
+                                            <!-- Modal header -->
+                                            <div class="modal-content">
+                                            <div class="modal-title">
+
+                                                <div class="modal-header">
+                                                <div class="btn-group">
+                                                    <!-- Download PDF (logged in)-->
+                                                    <?php if (isset($_SESSION['user_id'])) { ?>
+                                                    <button type="button" onclick="addDownload(<?php echo $row['RS_ID'] ?>,'download.php?file=<?php echo $row['File'] ?>')" class="btn btn-outline-dark fa fa-download sm-btn-font-size"> Download</button><!-- Download button -->
+
+                                                    <!-- View PDF (logged in)-->
+                                                    <button type="submit" onclick="addView(<?php echo $row['RS_ID'] ?>,'../Research_Studies/<?php echo $row['File'] ?>')" class="btn btn-outline-dark fa fa-file sm-btn-font-size"> View PDF</button><!-- View button -->
+                                                    <?php } else { ?>
+                                                    <!-- Download PDF -->
+                                                    <button type="button" onclick="needToLoginDownload()" class="btn btn-outline-dark fa fa-download sm-btn-font-size"> Download</button><!-- Download button -->
+
+                                                    <!-- View PDF -->
+                                                    <button type="submit" onclick="needToLoginView()" class="btn btn-outline-dark fa fa-file sm-btn-font-size"> View PDF</button><!-- View button -->
+                                                    <?php } ?>
+
+                                                </div>
+                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                                </div>
+
+                                            </div>
+
+                                            <!-- Modal details -->
+
+                                            <div class="modal-body">
+                                                <!-- Make the title color black -->
+                                                <!-- Make the hover color blue -->
+
+                                                <div class="cfont cs-2"><?php echo $row['Title'] ?></div><!-- research title -->
+                                                <br>
+                                                <div><?php echo $row['Author'] ?></div><!-- author name -->
+
+                                                <hr class="bg-muted">
+
+                                                <p class="text-uppercase">Abstract</p>
+
+                                                <p><?php echo $row['Abstract'] ?></p><!-- research abstract -->
+
+                                            </div>
+
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-outline-danger sm-btn-font-size" data-dismiss="modal">Close</button>
+
+                                            </div>
+
+
+
+
+                                            </div>
+                                        </div>
+                                        </div>
+
+                                        <!-- Mini tab for short details
+                                            This <a> tag represent the button for the whole research study -->
+
+                                        <a href="#cModalContent_<?php echo $row['RS_ID']; ?>" class="stretched-link" data-toggle="modal" data-backdrop="static"></a>
+                                    </div>
+
+                                    <!-- Statistics for large media -->
+
+                                    <!-----------------------------
+                                        Column changed to 2
+                                    ------------------------------->
+                                    <div class="col-2 sm-hide-stat">
+                                        <div class=" pt-2 text-ash">
+                                        <!-- Small tag added -->
+                                        <p id="viewCounts_<?php echo $row['RS_ID'] ?>" class="text-center small"><small>
+                                            <?php if ($row['Views'] === 0) { echo '0'; } else {  echo $row['Views'];} ?>
+                                            <br>Readers</small></p><!-- count of views -->
+
+                                        </div>
+                                        
+
+                                        <div class="pt-2 text-ash">
+                                        <!---------------------
+                                            Small tag added
+                                        ----------------------->
+                                        <p id="downloadCounts_<?php echo $row['RS_ID'] ?>" class="text-center small"><small>
+                                            <?php if ($row['Downloads'] === 0) { echo '0'; } else { echo $row['Downloads'];} ?>
+                                            <br>Downloads</small></p><!-- count of downloads -->
+                                        </div>
+
+
+                                    </div>
+
+                                    </div> <!-- End of research studies information -->
+
+
+                                </div>
+
+
+
+                                </div>
+                            <?php
+                            }
+                            } else {
+                            echo "No Results Found";
+                            } ?>
                         </div>
-                      </div>
-                    </div>
-
-                    <!-- Mini tab for short details
-                        This <a> tag represent the button for the whole research study -->
-
-                    <a href="#cModalContent_<?php echo $row['RS_ID']; ?>" class="stretched-link" data-toggle="modal" data-backdrop="static"></a>
-                  </div>
-
-                  <!-- Statistics for large media -->
-
-                  <div class="col-3 sm-hide-stat">
-                    <div class=" pt-2 text-ash">
-                      <p id="viewCounts_<?php echo $row['RS_ID'] ?>" class="text-center smaller">
-                        <?php if ($row['Views'] === 0) { echo '0'; } else {  echo $row['Views'];} ?>
-                        <br>Readers</p><!-- count of views -->
-
-                    </div>
-
-                    <div class="pt-2 text-ash">
-                      <p id="downloadCounts_<?php echo $row['RS_ID'] ?>" class="text-center smaller">
-                        <?php if ($row['Downloads'] === 0) { echo '0'; } else { echo $row['Downloads'];} ?>
-                        <br>Downloads</p><!-- count of downloads -->
-                    </div>
-
-
-                  </div>
-
-                </div> <!-- End of research studies information -->
-
-
-              </div>
-
-
-
-            </div>
-        <?php
-          }
-        } else {
-          echo "No Results Found";
-        } ?>
-    </div>
 
                         <!-- The whole research study details ends here -->
 
@@ -960,7 +999,8 @@ if (isset($_GET['query'])) {
                                         <p>Name: <?php echo $row_student['student_lname']; ?>,
                                             <?php echo $row_student['student_fname'];  ?> 
                                             <?php echo $row_student['student_mi'] ?></p>
-                                        <p>CYS: <?php echo $row_student['student_course']; ?></p>
+                                        <!-- Contraction removed -->
+                                        <p>Course, Year, and Section: <?php echo $row_student['student_course']; ?></p>
                                         <p>Address: <?php echo $row_student['student_address'] ?></p>
 
 
@@ -977,18 +1017,18 @@ if (isset($_GET['query'])) {
 
                                         <!-- display this for verified section -->
                                         <!--
-                                <div class="alert alert-info">
-                                    <strong>Verified!</strong>
-                                </div>
-                            -->
+                                            <div class="alert alert-info">
+                                                <strong>Verified!</strong>
+                                            </div>
+                                        -->
                                         <!-- Display this for denied section -->
                                         <!--
 
-                                <div class="alert alert-danger">
-                                    <strong>Denied!</strong>
-                                </div>
+                                            <div class="alert alert-danger">
+                                                <strong>Denied!</strong>
+                                            </div>
 
-                            -->
+                                        -->
                                         <!-- ********************************* -->
                                         <!--  Remove the two <br> tags below   -->
                                         <!-- when pending section isn't in use -->
@@ -1064,7 +1104,9 @@ if (isset($_GET['query'])) {
 
                         <?php }
                         }else{
-                            echo '<hr>';
+                            // hr removed
+                            // also remove filter in the first column
+
                             echo "No Results Found";
                         }
                             
@@ -1428,7 +1470,8 @@ if (isset($_GET['query'])) {
                         <!-- Create account -->
                         <label class="mr-2">Create account:</label>
                         <br>
-                        <button data-target="#createAdmin_mc" data-toggle="modal" class="btn btn-outline-primary">Append</button>
+                        <!-- Icon + added -->
+                        <button data-target="#createAdmin_mc" data-toggle="modal" class="btn btn-outline-primary">+ Append</button>
 
                         <!-- Modal for creating admin account -->
                         <div class="modal fade" id="createAdmin_mc">
@@ -1559,10 +1602,11 @@ if (isset($_GET['query'])) {
                             // output data of each row
                             while ($row_admin = $result_admin->fetch_assoc()) {
                         ?>
-                        <div class="row" id="border-bg">
-                            <div class="col-sm-8">
+                        <!-- Margin top added and col set to 5 -->
+                        <div id="border-bg" class="row mt-3">
+                            <div class="col-sm-5">
 
-
+                                <!-- No middle name here? -->
                                 <p>Name: <?php echo $row_admin['admin_lname'] ?>, <?php echo $row_admin['admin_fname'] ?></p>
                                 <p>Username: <?php echo $row_admin['admin_username']; ?></p>
 

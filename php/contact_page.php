@@ -345,8 +345,11 @@
               mt-3 mb-n2">
     <div class="container">
 
-      <h1 class="header-font">Lorem lorem ipsum</h1>
-      <p>Lorem ipsum dolor sit amet. Lorem ipsum lorem ipsum</p>
+      <!-- Information modified -->
+      <!-- Note: Change all jumbotron -->
+      <h2 class="header-font">Bond With Us!</h2>
+      <p> Explore, investigate, analyze, experiment, and test now.<br>
+          Join the aspiring professional researchers at Bulacan State University - Sarmiento Campus.</p>
     </div>
   </div>
 
