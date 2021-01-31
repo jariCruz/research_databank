@@ -770,8 +770,8 @@ if (isset($_GET['query'])) {
                                                 <!-- Make the hover color blue -->
 
                                                 <div class="cfont cs-2"><?php echo $row['Title'] ?></div><!-- research title -->
-                                                <br>
-                                                <div><?php echo $row['Author'] ?></div><!-- author name -->
+                                                <!-- br removed -->
+                                                <div><a href="#"><?php echo $row['Author'] ?></a></div><!-- author name -->
 
                                                 <hr class="bg-muted">
 
@@ -992,8 +992,10 @@ if (isset($_GET['query'])) {
                         <hr>
 
                         <!-- student account starts here -->
-                                <div class="row" id="border-bg">
-                                    <div class="col-sm-8">
+
+                                <!-- Margin top added and col set to 5 -->
+                                <div class="row mt-3" id="border-bg">
+                                    <div class="col-sm-5">
 
 
                                         <p>Name: <?php echo $row_student['student_lname']; ?>,
@@ -1060,12 +1062,14 @@ if (isset($_GET['query'])) {
                                                         <!-- slideshow -->
                                                         <div class="carousel-inner">
 
+                                                            <!-- width and heigth added -->
                                                             <div class="carousel-item active">
-                                                                <img src="../Student_ID/<?php echo $row_student['student_lname'] . '_' . $row_student['student_fname'] . '_' . $row_student['student_mi'] . '_'; ?>/<?php echo $row_student['student_id_front']; ?>" alt="identification card front" width="500" height="500">
+                                                                <img class="mw-100 mh-100" src="../Student_ID/<?php echo $row_student['student_lname'] . '_' . $row_student['student_fname'] . '_' . $row_student['student_mi'] . '_'; ?>/<?php echo $row_student['student_id_front']; ?>" alt="identification card front" width="500" height="500">
                                                             </div>
 
+                                                            <!-- width and heigth added -->
                                                             <div class="carousel-item">
-                                                                <img src="../Student_ID/<?php echo $row_student['student_lname'] . '_' . $row_student['student_fname'] . '_' . $row_student['student_mi'] . '_'; ?>/<?php echo $row_student['student_id_back']; ?>" alt="identification card back" width="500" height="500">
+                                                                <img class="mw-100 mh-100" src="../Student_ID/<?php echo $row_student['student_lname'] . '_' . $row_student['student_fname'] . '_' . $row_student['student_mi'] . '_'; ?>/<?php echo $row_student['student_id_back']; ?>" alt="identification card back" width="500" height="500">
                                                             </div>
 
 
@@ -1080,11 +1084,6 @@ if (isset($_GET['query'])) {
                                                             <span class="fa fa-chevron-right" style="color: #000000"></span>
                                                         </a>
 
-                                                    </div>
-
-                                                    <!-- footer -->
-                                                    <div class="modal-footer">
-                                                        <button class="btn btn-outline-danger" data-dismiss="modal">Close</button>
                                                     </div>
 
                                                 </div>
@@ -1264,9 +1263,10 @@ if (isset($_GET['query'])) {
                             // output data of each row
                             while ($row_professor = $result_professor->fetch_assoc()) {
                         ?>
-                                <div class="row" id="border-bg">
-                                    <div class="col-sm-8">
 
+                                <!-- Margin top added and col set to 5 -->
+                                <div class="row mt-3" id="border-bg">
+                                    <div class="col-sm-5">
 
                                         <p>Name: <?php echo $row_professor['professor_lname']; ?>, <?php echo $row_professor['professor_fname'] . ' ' . $row_professor['professor_mi']; ?></p>
                                         <p>Department: <?php echo $row_professor['professor_department']; ?></p>
@@ -1326,13 +1326,15 @@ if (isset($_GET['query'])) {
 
                                                         <!-- slideshow -->
                                                         <div class="carousel-inner">
-
+                                                        
+                                                            <!-- width and heigth added -->
                                                             <div class="carousel-item active">
-                                                                <img src="../Professor_ID/<?php echo $row_professor['professor_lname'] . '_' . $row_professor['professor_fname'] . '_' . $row_professor['professor_mi'] . '_'; ?>/<?php echo $row_professor['professor_id_front']; ?>" alt="identification card front" width="500" height="500">
+                                                                <img class="mw-100 mh-100" src="../Professor_ID/<?php echo $row_professor['professor_lname'] . '_' . $row_professor['professor_fname'] . '_' . $row_professor['professor_mi'] . '_'; ?>/<?php echo $row_professor['professor_id_front']; ?>" alt="identification card front" width="500" height="500">
                                                             </div>
 
+                                                            <!-- width and heigth added -->
                                                             <div class="carousel-item">
-                                                                <img src="../Professor_ID/<?php echo $row_professor['professor_lname'] . '_' . $row_professor['professor_fname'] . '_' . $row_professor['professor_mi'] . '_'; ?>/<?php echo $row_professor['professor_id_back']; ?>" alt="identification card back" width="500" height="500">
+                                                                <img class="mw-100 mh-100" src="../Professor_ID/<?php echo $row_professor['professor_lname'] . '_' . $row_professor['professor_fname'] . '_' . $row_professor['professor_mi'] . '_'; ?>/<?php echo $row_professor['professor_id_back']; ?>" alt="identification card back" width="500" height="500">
                                                             </div>
 
 
