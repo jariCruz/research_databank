@@ -159,16 +159,15 @@ include "php/server.php";
               <div class="col mt-n3 mb-n3 modal-hover modal-height
                           d-flex align-items-center justify-content-center">
 
-                    <a href="php/registration_page_student.php"
-                        class="stretched-link">Student</a>
+                        <a class="stretched-link" data-dismiss="modal" href="#" data-toggle="modal" data-target="#create-student_mc">Student</a>
+                        
               </div>
 
             <!-- Professor -->
               <div class="col mt-n3 mb-n3 modal-hover modal-height
                           d-flex align-items-center justify-content-center">
                 
-                  <a href="php/registration_page_professor.php"
-                      class="stretched-link">Professor</a>
+                          <a class="stretched-link" data-dismiss="modal" href="#" data-toggle="modal" data-target="#create-professor_mc">Professor</a>
               </div>
               
             </div>
@@ -184,6 +183,547 @@ include "php/server.php";
 
     <!-- modal -->
     </div>
+
+    <!-- Modal for creating student account -->
+    <div class="modal fade" id="create-student_mc">
+      <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+                  
+              <!-- modal header -->
+              <div class="modal-header">
+              
+                  <h5 class="header-font">A student is registering...</h5>
+                  <button class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <!-- modal body -->
+              <div class="modal-body">
+                
+
+                <form id="register_form" 
+                        action="registration_page_student_function.php" 
+                        method="post" 
+                        enctype="multipart/form-data"
+                        class="p-3">
+
+
+                <!-- Name -->    
+                <div class="form-row">
+                    
+                    <!-- Forename field -->
+
+                    <div class="form-group col-sm-5 needs-validation">
+                        <label for="form_fname">Forename:</label>
+                        
+                        <input type="text"
+                                class="form-control"
+                                id="form_fname"
+                                placeholder="Forename"
+                                name="form_fname"
+                                minlength="2"
+                                maxlength="30"
+                                required>                    
+
+
+                    </div>
+
+                    <!-- Middle initial field -->
+
+                    <div class="form-group col-sm-2 needs-validation">
+                        <label for="form_mi">M.I.:</label>
+                        <input type="text"
+                                name="form_mi"
+                                id="form_mi"
+                                placeholder="M.I."
+                                class="form-control"
+                                maxlength="5">
+
+                    </div>
+
+                    <!-- Surname field -->
+
+                    <div class="form-group col-sm-5 needs-validation">
+
+                        <label for="form_sname">Surname:</label>
+                        <input type="text"
+                                name="form_sname"
+                                id="form_sname"
+                                placeholder="Surname"
+                                class="form-control"
+                                maxlength="30"
+                                minlength="1"
+                                required>
+                    </div>
+
+                </div>
+
+                <!-- Identification card -->
+                    
+                <div class="custom-file form-group needs-validation">
+                <label for="form_file1">Identification card:</label>
+                        
+                    <!-- Front -->
+                    <input type="file"
+                            name="form_file1"
+                            id="form_file1"
+                            class="custom-file-input"
+                            accept="image/*"
+                            required>
+                    <label for="form_file1" class="custom-file-label front mt-4">Front</label>
+
+                    <!-- Script for adding the name of file to the label -->
+                    
+                    <script>
+                        $('#form_file1').on('change', function(e){
+                            // Get file name
+                            var fileName = e.target.files[0].name;
+
+                            // Replace the "Choose file..." label
+                            $(this).next('.front').html(fileName);
+                        })
+
+
+                    </script>                    
+                </div>
+
+                <!-- Back -->
+                <div class="custom-file form-group needs-validation">
+                    
+                    <input type="file"
+                            name="form_file2"
+                            id="form_file2"
+                            class="custom-file-input"
+                            accept="image/*"
+                            required>
+                    <label for="form_file2" class="custom-file-label back mt-2">Back</label>
+
+                    <!-- Script for adding the name of file to the label -->
+                    
+                    <script>
+                        $('#form_file2').on('change', function(e){
+                            // Get file name
+                            var fileName = e.target.files[0].name;
+
+                            // Replace the "Choose file..." label
+                            $(this).next('.back').html(fileName);
+                        })
+
+
+                    </script>
+
+                </div>
+
+                <!-- Hide Year dropdown for alumnus -->
+                <!-- Checkbox for alumnus -->
+                <div class="form-group mt-4">
+
+                    <input id="form_alumnus" name="form_alumnus" type="checkbox" value="yes"
+                            onclick="lessAlumnus()"> I am an Alumnus.</input>
+
+
+                </div>
+                <script src="js/moreAlumnus_script.js"></script>
+
+                <!-- Year level field -->
+
+                <div class="row ml-1">
+                    <span id="dotss"></span>
+                    <div class="form-group mr-1 needs-validation" id="more">
+                            <label for="form_year">Year level:</label>
+
+
+                            <select name="form_year"
+                                    id="form_year"
+                                    class="form-control
+                                            select-picker
+                                            border-muted"
+                                    required>
+
+                                <option value="">Choose year level</option>
+                                <option value="1st year">1st year</option>
+                                <option value="2nd year">2nd year</option>
+                                <option value="3rd year">3rd year</option>
+                                <option value="4th year">4th year</option>
+                            </select>
+
+                    </div>
+
+
+                    <!-- Course field -->
+
+
+                    <div class="form-group needs-validation">
+                            <label for="form_course">Course:</label>
+
+                            <select name="form_course"
+                                    id="form_course"
+                                    class="form-control
+                                            select-picker
+                                            border-muted"
+                                    required>
+
+                                <option value="">Choose course</option>
+                                <option value="bsit">BSIT</option>
+                                <option value="educ">EDUC</option>
+                            </select>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Address field -->
+
+                <div class="form-group needs-validation">
+                    <label for="form_address">Address:</label>
+                    <input type="text"
+                            name="form_address"
+                            id="form_address"
+                            placeholder="Address"
+                            class="form-control"
+                            maxlength="200"
+                            minlength="8"
+                            required>
+
+                </div>
+
+
+                <!-- Username -->
+
+                <div class="form-group needs-validation">
+                    <label for="form_address">Username:</label>
+                    <input type="text"
+                            name="form_uname"
+                            id="form_uname"
+                            placeholder="Username"
+                            class="form-control"
+                            maxlength="200"
+                            minlength="4"
+                            required>
+
+                </div>
+
+
+                <!-- Password field -->
+
+                <div class="form-group needs-validation">
+                    <label for="form_pass">Passsword:</label>
+                    <input type="password"
+                            name="form_pass"
+                            id="form_pass"
+                            placeholder="Password"
+                            class="form-control"
+                            maxlength="30"
+                            minlength="8"
+                            required>
+
+                </div>
+
+                <!-- Retype password field -->
+
+                <div class="form-group needs-validation">
+                    <label for="form_repass">Retype password:</label>
+                    <input type="password"
+                            name="form_repass"
+                            id="form_repass"
+                            placeholder="Retype password"
+                            class="form-control"
+                            maxlength="30"
+                            minlength="8"
+                            required>
+
+                </div>
+
+
+
+                <!-- Checkbox for terms of service and privacy policy -->
+                <div class="form-group">
+                    <input id="form_checkbox" name="form_checkbox" type="checkbox" value="1" required>
+                    <span>I accept the <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>.</span>
+
+
+                </div>
+
+                <!-- Register btn -->
+                <div>
+                    <button type="button" class="btn btn-primary" name="registerBtn" id="registerBtn" 
+                    onclick="validate(); submitVal();">Register</button>
+
+                </div>
+
+                <span class="d-flex justify-content-center mt-3">Already have an account?
+                <a data-dismiss="modal" href="#" data-toggle="modal" data-target="#signIn_mc">&MediumSpace;Login here</a>.</span>                
+                    
+                <hr>
+                <p class="d-flex justify-content-center my-n3 pt-1">Register as a&MediumSpace;
+                <a data-dismiss="modal" href="#" data-toggle="modal" data-target="#create-professor_mc">professor
+                </a>&MediumSpace;instead.</p>
+                
+                
+
+
+                </form>
+              </div>
+
+      
+              </div>
+
+          </div>
+
+      <!-- Form validation -->
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="js/registration_student_script.js"></script>
+      <!-- Modal for creating student account -->
+    </div>
+    
+    <!-- Modal for creating professor account -->
+    <div class="modal fade" id="create-professor_mc">
+      <div class="modal-dialog modal-dialog-scrollable">
+          <div class="modal-content">
+                  
+              <!-- modal header -->
+              <div class="modal-header">
+              
+                  <h5 class="header-font">A professor is registering...</h5>
+                  <button class="close" data-dismiss="modal">&times;</button>
+              </div>
+
+              <!-- modal body -->
+              <div class="modal-body">
+                
+
+                <form id="register_form" 
+                        action="registration_page_professort_function.php" 
+                        method="post" 
+                        enctype="multipart/form-data"
+                        class="p-3">
+
+                        <div class="form-row">
+               
+                  <!-- Forename field -->
+
+                  <div class="form-group col-sm-5 needs-validation">
+                      <label for="form_fname">Forename:</label>
+                      
+                      <input type="text"
+                              class="form-control"
+                              id="form_fname"
+                              placeholder="Forename"
+                              name="form_fname"
+                              minlength="2"
+                              maxlength="30"
+                              required>
+                  </div>
+
+                  <!-- Middle initial field -->
+
+                  <div class="form-group col-sm-2  needs-validation">
+                      <label for="form_mi">M.I.:</label>
+                      <input type="text"
+                              name="form_mi"
+                              id="form_mi"
+                              placeholder="M.I."
+                              class="form-control"
+                              maxlength="5">                
+                  </div>
+
+                  <!-- Surname field -->
+
+
+                  <div class="form-group col-sm-5 needs-validation">
+
+                      <label for="form_sname">Surname:</label>
+                      <input type="text"
+                              name="form_sname"
+                              id="form_sname"
+                              placeholder="Surname"
+                              class="form-control"
+                              maxlength="30"
+                              minlength="1"
+                              required>
+                  </div>
+
+              </div>
+
+              <!-- Department field -->
+              
+
+              <div class="form-group needs-validation">
+                      <label for="form_department">Department:</label>
+                      
+                      <select name="form_department"
+                              id="form_department"
+                              class="form-control
+                                      select-picker
+                                      border-muted"
+                              required>
+
+                          <option value="" required>Choose department</option>
+                          <option value="BIT Department" required>BIT Department</option>
+                          <option value="EDUC Department" required>EDUC Department</option>
+                      </select>
+                  
+              </div>
+
+              <!-- Identification card -->
+              
+              <div class="custom-file form-group needs-validation">
+              <label for="form_file1">Identification card:</label>
+                      
+                  <!-- Front -->
+                  <input type="file"
+                          name="form_file1"
+                          id="form_file1"
+                          class="custom-file-input"
+                          accept="image/*"
+                          required>
+                  <label for="form_file1" class="custom-file-label front mt-4">Front</label>
+
+                  <!-- Script for adding the name of file to the label -->
+                  
+                  <script>
+                      $('#form_file1').on('change', function(e){
+                          // Get file name
+                          var fileName = e.target.files[0].name;
+
+                          // Replace the "Choose file..." label
+                          $(this).next('.front').html(fileName);
+                      })
+
+
+                  </script>                    
+              </div>
+
+                  <!-- Back -->
+                  <div class="custom-file form-group needs-validation">
+                      
+                      <input type="file"
+                              name="form_file2"
+                              id="form_file2"
+                              class="custom-file-input"
+                              accept="image/*"
+                              required>
+                      <label for="form_file2" class="custom-file-label back mt-2">Back</label>
+
+                      <!-- Script for adding the name of file to the label -->
+                      
+                      <script>
+                          $('#form_file2').on('change', function(e){
+                              // Get file name
+                              var fileName = e.target.files[0].name;
+
+                              // Replace the "Choose file..." label
+                              $(this).next('.back').html(fileName);
+                          })
+
+
+                      </script>
+                  
+                  </div>
+
+
+
+              <!-- Address field -->
+
+              <div class="form-group mt-3 needs-validation">
+                  <label for="form_address">Address:</label>
+                  <input type="text"
+                          name="form_address"
+                          id="form_address"
+                          placeholder="Address"
+                          class="form-control"
+                          maxlength="200"
+                          minlength="8"
+                          required>
+
+              </div>
+
+
+              <!-- Username -->
+
+              <div class="form-group needs-validation">
+                  <label for="form_address">Username:</label>
+                  <input type="text"
+                          name="form_uname"
+                          id="form_uname"
+                          placeholder="Username"
+                          class="form-control"
+                          maxlength="200"
+                          minlength="4"
+                          required>
+
+              </div>
+
+
+              <!-- Password field -->
+
+
+              <div class="form-group needs-validation">
+                  <label for="form_pass">Passsword:</label>
+                  <input type="password"
+                          name="form_pass"
+                          id="form_pass"
+                          placeholder="Password"
+                          class="form-control"
+                          maxlength="30"
+                          minlength="8"
+                          required>
+
+              </div>
+
+              <!-- Retype password field -->
+
+              <div class="form-group needs-validation">
+                  <label for="form_repass">Retype password:</label>
+                  <input type="password"
+                          name="form_repass"
+                          id="form_repass"
+                          placeholder="Retype password"
+                          class="form-control"
+                          maxlength="30"
+                          minlength="8"
+                          required>
+
+              </div>
+              
+              <!-- Checkbox -->
+              <div class="form-group needs-validation">
+                  <input id="form_checkbox" name="form_checkbox" type="checkbox" value="1" required>
+                  <span>I accept the <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>.</span>
+
+              </div>
+
+              <!-- Register btn -->
+              <div>
+                  <button type="button" class="btn btn-primary"  name="registerBtn" id="registerBtn" 
+                  onclick="validate(); submitVal();">Register</button>
+
+              </div>
+
+              <span class="d-flex justify-content-center mt-3">Already have an account?
+              <a data-dismiss="modal" href="#" data-toggle="modal" data-target="#signIn_mc">&MediumSpace;Login here</a>.</span>                
+                  
+              <hr>
+              <p class="d-flex justify-content-center my-n3 pt-1">Register as a&MediumSpace;
+              <a data-dismiss="modal" href="#" data-toggle="modal" data-target="#create-student_mc">student
+              </a>&MediumSpace;instead.</p>
+
+      
+          </form>
+              </div>
+
+      
+              </div>
+
+          </div>
+
+      <!-- Form validation -->
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+      <script src="js/registration_professor_script.js"></script>
+      <!-- Modal for creating professor account -->
+    </div>
+    
+
 
     <!-- Modal for sign in -->
     <div class="modal fade" id="signIn_mc">
@@ -298,7 +838,7 @@ include "php/server.php";
           </div>
     </div>
 
-    
+
 
     <!-- body -->
 
