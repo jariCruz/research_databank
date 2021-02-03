@@ -34,7 +34,7 @@ include "php/server.php";
 
   <!-- Font link -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|Poppins">
-
+  
   <!-- Other resources -->
   <link rel="stylesheet" href="css/index_style.css">
   <link rel="stylesheet" href="css/responsive_style.css">
@@ -405,8 +405,13 @@ include "php/server.php";
 
                 <!-- Password field -->
 
-                <div class="form-group needs-validation">
-                    <label for="form_pass_student">Passsword:</label>
+                <!-- label moved -->
+                <label for="form_pass_student">Passsword:</label>
+
+                <!-- form-group change to input-group & margin bottom added-->
+                <div class="input-group mb-3 needs-validation">
+                        
+                    
                     <input type="password"
                             name="form_pass_student"
                             id="form_pass_student"
@@ -416,12 +421,26 @@ include "php/server.php";
                             minlength="8"
                             required>
 
+                    <!-- Show password added -->
+                    <div class="input-group-append">
+                        <button type="button" class="input-group btn btn-outline-primary"
+                                id="show_pass_student_btn"
+                                onclick="showPassword('form_pass_student', 'show_pass_student_btn', 'show_pass_student_icon')">
+                            <span id="show_pass_student_icon" class="fa fa-eye"></span>
+                        </button>
+                    </div>
+
                 </div>
 
-                <!-- Retype password field -->
 
-                <div class="form-group needs-validation">
-                    <label for="form_repass_student">Retype password:</label>
+                <!-- Retype password field -->
+                
+                <!-- label moved -->
+                <label for="form_repass_student">Retype password:</label>
+
+                <!-- form-group change to input-group & margin bottom added-->
+                <div class="input-group mb-3 needs-validation">
+                    
                     <input type="password"
                             name="form_repass_student"
                             id="form_repass_student"
@@ -430,6 +449,15 @@ include "php/server.php";
                             maxlength="30"
                             minlength="8"
                             required>
+                    <!-- Show password added -->
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-outline-primary"
+                                  id="show_repass_student_btn"
+                                  onclick="showPassword('form_repass_student', 'show_repass_student_btn', 'show_repass_student_icon')">
+                          <span id="show_repass_student_icon" class="fa fa-eye"></span>
+                        </button>
+                    
+                    </div>
 
                 </div>
 
@@ -653,9 +681,12 @@ include "php/server.php";
 
               <!-- Password field -->
 
+              <!-- label moved -->
+              <label for="form_pass_professor">Passsword:</label>
 
-              <div class="form-group needs-validation">
-                  <label for="form_pass_professor">Passsword:</label>
+              <!-- form-group change to input-group and margin bottom added -->
+              <div class="input-group mb-3 needs-validation">
+                  
                   <input type="password"
                           name="form_pass_professor"
                           id="form_pass_professor"
@@ -665,12 +696,25 @@ include "php/server.php";
                           minlength="8"
                           required>
 
+                  <!-- Show password added -->
+                  <div class="input-group-append">
+                    <button type="button" class="btn btn-outline-primary"
+                            id="pass_prof_btn"
+                            onclick="showPassword('form_pass_professor', 'pass_prof_btn', 'pass_prof_icon')">
+
+                      <span id="pass_prof_icon" class="fa fa-eye"></span>
+                    </button>
+                  </div>
+
               </div>
 
               <!-- Retype password field -->
+              <!-- label moved -->
+              <label for="form_repass_professor">Retype password:</label>
 
-              <div class="form-group needs-validation">
-                  <label for="form_repass_professor">Retype password:</label>
+              <!-- form-group change to input-group and margin bottom added -->
+              <div class="input-group mb-3 needs-validation">
+
                   <input type="password"
                           name="form_repass_professor"
                           id="form_repass_professor"
@@ -679,6 +723,15 @@ include "php/server.php";
                           maxlength="30"
                           minlength="8"
                           required>
+                  
+                  <!-- Show password added -->
+                  <div class="input-group-append">
+                    <button type="button" class="btn btn-outline-primary"
+                            id="repass_prof_btn"
+                            onclick="showPassword('form_repass_professor', 'repass_prof_btn', 'repass_prof_icon')">
+                      <span id="repass_prof_icon" class="fa fa-eye"></span>
+                    </button>
+                  </div>
 
               </div>
 
@@ -756,9 +809,12 @@ include "php/server.php";
 
                       <!-- Password field -->
 
+                      <!-- label moved -->
+                      <label for="form_pass_login">Passsword:</label>
 
-                      <div class="form-group mt-2">
-                          <label for="form_pass_login">Passsword:</label>
+                      <!-- form-group changed to input-group and add margin bottom -->
+                      <div class="input-group mb-4 mt-2">
+                          
                           <input type="password"
                                   name="form_pass_login"
                                   id="form_pass_login"
@@ -768,30 +824,31 @@ include "php/server.php";
                                   minlength="8"
                                   required>
 
+                          <!-- Show password added -->
+                          <div class="input-group-append">
+                            <button type="button" class="btn btn-outline-primary"
+                                    id="pass_login_btn"
+                                    onclick="showPassword('form_pass_login', 'pass_login_btn', 'pass_login_icon')">
+                              <span id="pass_login_icon" class="fa fa-eye"></span>
+                            </button>
+                          </div>
+
                       </div>
                       <input type="hidden" id="redirect" name="redirect" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']) ?>" />
 
-                      
-                      <!-- Checkbox -->
-                      
-                      
-                      <div class="row">
-                          <div class="form-group col">
-                              <input type="checkbox">
-                              <span>Remember me</span>
-                          </div>
+                    
 
-                          <!-- Register btn -->
-                          <div class="col d-flex justify-content-end">
-                              <button name="login-submit" id="login-submit" onclick="login()" 
-                              type="submit" class="btn btn-primary">Login</button>
-                          </div>
-                      
+                      <!-- Register btn -->
+                      <div class="col d-flex justify-content-end">
+                          <button name="login-submit" id="login-submit" onclick="login()" 
+                          type="submit" class="btn btn-primary">Login</button>
                       </div>
                       
-                      <span class="d-flex justify-content-center mt-3">Don't have an account yet?&MediumSpace;
-                          <a data-dismiss="modal" href="#" data-toggle="modal" data-target="#create_mc">Register here.</a>
-                      </span>
+                      <!-- Register link fixed -->
+                      <div class="row d-flex justify-content-center mt-3">
+                        <p>Don't have an account yet?&ThickSpace;</p>
+                        <a data-dismiss="modal" href="#" data-toggle="modal" data-target="#create_mc">Register here.</a>
+                      </div>
 
                       <!-- just a freakin horizontal line -->            
                       <hr class="bg-dark mt-4">
@@ -897,8 +954,9 @@ include "php/server.php";
             <!-- Margin changed to space -->
             <!-- <span>&ThickSpace;&ThickSpace;</span> -->
 
+            <!-- There's an error here so I added '/' in line 902 column 33 -->
             <!-- <div> -->
-              <!-- <a href="#"><?php// echo '<u>'.$mostViewed[3].'</u>'; ?></a> -->
+              <!-- <a href="#"></?php// echo '<u>'.$mostViewed[3].'</u>'; ?></a> -->
             <!-- </div> -->
             <!-- </ul> -->
 
@@ -951,7 +1009,8 @@ include "php/server.php";
         <div class="col-md-4 l-mt sm-mt">
           <span>Follow us on:</span><br>
 
-          <span class="fa fa-facebook-official sl"></span>
+          <!-- FB link added -->
+          <a href="https://www.facebook.com/bulsuofficial" class="fa fa-facebook-official sl"></a>
           <span class="fa fa-instagram sl px-3"></span>
           <span class="fa fa-twitter-square sl"></span>
         </div>
@@ -973,12 +1032,40 @@ include "php/server.php";
             }
         });
     });
+
+
+
+    // Dynamic function for show password
+    function showPassword(pass_input, pass_btn, pass_icon){
+
+      var passInput = document.getElementById(pass_input);
+      var passBtn = document.getElementById(pass_btn);
+      var passIcon = document.getElementById(pass_icon);
+
+      if (passIcon.className === "fa fa-eye") {
+
+        passInput.type = "text";
+        passBtn.className += " active";
+        passIcon.className = passIcon.className.replace("fa fa-eye", "fa fa-eye-slash");
+
+      }else {
+
+        passInput.type = "password";
+        passBtn.className = passBtn.className.replace(" active", "");
+        passIcon.className = passIcon.className.replace("fa fa-eye-slash", "fa fa-eye");
+
+      }
+
+    }
+           
+
     </script>
     <!-- sweet alert -->
+    <!-- '/' removed error in localhost -->
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="/js/login.js"></script>
-    <script src="/js/registration_professor_script.js"></script>
-    <script src="/js/registration_student_script.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/registration_professor_script.js"></script>
+    <script src="js/registration_student_script.js"></script>
 </body>
 
 </html>
