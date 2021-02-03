@@ -421,7 +421,13 @@ if (isset($_GET['query'])) {
                     <h4 class="sm-body-font-size"><?php echo $row["Title"] ?></h4><!-- Research title -->
 
                     <!-- Author name -->
-                    <a href="#" class="cLink"><?php echo $row["Author"] ?></a>
+                    <!-- Add author here like this -->
+                    <div>
+
+                      <a href="#" class="cLink"><?php echo $row["Author"] ?></a>,&ThickSpace;
+                      <a href="#" class="cLink"><?php echo $row["Author"] ?></a>,&ThickSpace;
+                      <a href="#" class="cLink"><?php echo $row["Author"] ?></a>
+                    </div>
                   
                   <!-- Abstract contraction -->
                   <p>
@@ -510,7 +516,14 @@ if (isset($_GET['query'])) {
                             <!-- Make the hover color blue -->
 
                             <div class="cfont cs-2"><?php echo $row['Title'] ?></div><!-- research title -->
-                            <div><a href="#"><?php echo $row['Author'] ?></a></div><!-- author name -->
+                            
+                            <!-- author name -->
+                            <!-- Add here like this -->
+                            <div>
+                              <a href="#"><?php echo $row['Author'] ?></a>,&ThickSpace;
+                              <a href="#"><?php echo $row['Author'] ?></a>,&ThickSpace;
+                              <a href="#"><?php echo $row['Author'] ?></a>
+                            </div>
 
                             <hr class="bg-muted">
 
