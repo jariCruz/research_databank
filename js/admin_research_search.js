@@ -17,14 +17,30 @@ input.addEventListener("keyup", function(event) {
 
 //button function
 function researchBtn() {
-      var xmlhttp = new XMLHttpRequest();
-      xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-          document.getElementById("research-livesearch").innerHTML = this.responseText;
-        }
-      };
-      var token = document.getElementById("rs-input").value;
-      xmlhttp.open("GET", "admin_research_search.php?query=" + token, true);
-      xmlhttp.send();
+      $(document).ready(function() {
+      function loadData(page) {
+        $.ajax({
+          url: "admin_research_search.php",
+          type: "POST",
+          cache: false,
+          data: {
+            page_no: page,
+            query: $('#rs-input').val()
+          },
+          success: function(response) {
+            console.log(page);
+            $("#research-content").html(response);
+          }
+        });
+      }
+      loadData();
+
+      // Pagination code
+      $(document).on("click", ".pagination li a", function(e) {
+        e.preventDefault();
+        var pageId = $(this).attr("id");
+        loadData(pageId);
+      });
+    });
 }
 //end of search research studies

@@ -230,7 +230,7 @@
 
                           <!-- Register btn -->
                           <div class="col d-flex justify-content-end">
-                              <button name="login-submit" id="login-submit" type="submit" class="btn btn-primary">Login</button>
+                              <button name="login-submit" id="login-submit" type="submit" class="btn btn-primary" onclick="login()">Login</button>
                           </div>
                       
                       </div>
@@ -390,6 +390,6 @@
   </footer>
 
 
-    
+<script src="../js/login.js"></script>    
 </body>
 </html>

@@ -147,24 +147,19 @@
         
         </div>
 
-        <!-- Hide Year dropdown for alumnus -->
         <!-- Checkbox for alumnus -->
         <div class="form-group mt-4">
-
-            <input id="form_alumnus" name="form_alumnus" type="checkbox" value="yes"
-                    onclick="lessAlumnus()"> I am an Alumnus.</input>
+            <input id="form_alumnus" name="form_alumnus" type="checkbox" value="yes">
+            <span>I am an alumnus.</span>
 
 
         </div>
-        <script src="../js/moreAlumnus_script.js"></script>
 
         <!-- Year level field -->
-        
-        <div class="row ml-1">
-            <span id="dotss"></span>
-            <div class="form-group mr-1 needs-validation" id="more">
-                    <label for="form_year">Year level:</label>
 
+        <div class="row ml-1">
+            <div class="form-group mr-1 needs-validation">
+                    <label for="form_year">Year level:</label>
 
                     <select name="form_year"
                             id="form_year"

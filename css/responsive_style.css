@@ -119,7 +119,6 @@
     /* Search input width */
     .sm-width{
 
-        /* Width recalibrate */
         width: 17rem;
     }
 }
@@ -210,4 +209,9 @@
         margin-top: -1%
     }
 
+}
+
+/*swal text*/
+.swal-text {
+  text-align: center;
 }

@@ -65,6 +65,7 @@ if (isset($_GET['query'])) {
 </head>
 
 <body>
+
     <!-- Header -->
 
     <nav class="navbar navbar-expand-md navbar-light bg-light">
@@ -93,8 +94,17 @@ if (isset($_GET['query'])) {
                         <a class="nav-link" href="research_coordinator_page.php">Home</a>
 
                     </li>
-               
-                    <!-- Remove links -->
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="about_page.php">About</a>
+
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact_page.php">Contact</a>
+
+                    </li>
 
                     <!-- Dropdown for Logged-in -->
                     <!--
@@ -190,7 +200,7 @@ if (isset($_GET['query'])) {
 
                             <!-- Register btn -->
                             <div class="col d-flex justify-content-end">
-                                <button name="login-submit" id="login-submit" type="submit" class="btn btn-primary">Login</button>
+                                <button name="login-submit" id="login-submit" type="button" class="btn btn-primary" onclick="login()">Login</button>
                             </div>
 
                         </div>
@@ -291,8 +301,11 @@ if (isset($_GET['query'])) {
                 border-left-0
                 border-right-0">
 
-
-        <h4 class="header-font text-right">Welcome Webster!</h4>
+    <?php if(isset($_SESSION['user_id'])) { ?>
+        <h4 class="header-font text-right">Welcome <?php echo $_SESSION['lastname'] ?>!</h4>
+    <?php }else{ ?>
+        <h4 class="header-font text-right">Welcome Unidentified Sht. ?>!</h4>
+    <?php } ?>
 
 
     </div>
@@ -393,7 +406,7 @@ if (isset($_GET['query'])) {
                                         <label for="form_title">Title:</label>
 
                                         <input type="text" class="form-control" id="form_title" placeholder="Title" 
-                                        name="form_title" minlength="10" maxlength="100" 
+                                        name="form_title" minlength="10" maxlength="255" 
                                         onkeypress="validateInput('form_title', '10')" required>
 
                                     </div>
@@ -425,17 +438,16 @@ if (isset($_GET['query'])) {
 
                                     <div class="row">
                                         <div class="form-group col">
-                                            <label for="form_year">Year level:</label>
+                                            <label for="form_year">Year:</label>
 
                                             <select name="form_year" id="form_year" class="form-control
                                                     select-picker
                                                     border-muted" onchange="validateInput('form_year', '')" required>
 
-                                                <option value="">Choose year level</option>
-                                                <option value="1st year">1st year</option>
-                                                <option value="2nd year">2nd year</option>
-                                                <option value="3rd year">3rd year</option>
-                                                <option value="4th year">4th year</option>
+                                                <option value="">Choose year</option>
+                                                <?php for ($year=2000; $year <= 2030; $year++) { 
+                                                echo '<option value="1st year">'.$year.'</option>';
+                                                } ?>
                                             </select>
 
 
@@ -455,6 +467,7 @@ if (isset($_GET['query'])) {
                                                 <option value="">Choose course</option>
                                                 <option value="bsit">BSIT</option>
                                                 <option value="educ">EDUC</option>
+                                                <option value="bm">BM</option>
                                             </select>
 
                                         </div>
@@ -479,9 +492,9 @@ if (isset($_GET['query'])) {
                                     <div class="form-group mb-3">
                                         <label for="form_abstract">Abstract:</label>
                                         <textarea name="form_abstract" id="form_abstract" placeholder="Abstract" 
-                                        class="form-control min-height max-height" 
+                                        class="form-control" style="min-height: 80px; max-height: 160px;" 
                                         onkeypress="validateInput('form_abstract', '10')" rows="5" minlength="10" 
-                                        maxlength="500" required></textarea>
+                                        required></textarea>
                                     </div>
 
                                     <!-- File -->
@@ -559,316 +572,9 @@ if (isset($_GET['query'])) {
                         </div>
                 </div>
 
-                <?php
-                //this sql naman ay para ipakita ang nilalaman ng nakalimit
-                $sql = "SELECT * 
-                FROM researchstudy_table  
-                ORDER BY Title ASC";
-
-                //this sql is for getting the number of results
-                $sql_count = " SELECT * from researchstudy_table ";
-                $result = mysqli_query($conn, $sql);
-                $count_result = mysqli_query($conn, $sql_count);
-                $number_pages = ceil(mysqli_num_rows($count_result) / $limit);
-                ?>
-
                 <!-- Main content -->
-                <div id="research-livesearch">
-                <div class="row">
-
-                    <!-- first column -->
-                    <div class="col-sm-3 pl-4 pt-4 sm-hide">
-
-                        <p><?php if (mysqli_num_rows($count_result) > 0) {
-                                echo mysqli_num_rows($count_result);
-                            } else {
-                                echo '0';
-                            } ?> Results</p><!-- results count -->
-                        <hr>
-
-                        <?php
-                        if (mysqli_num_rows($count_result) === 0) {
-                            echo '';
-                        } else { ?>
-                            <!-- Filter Department -->
-                                <label>Filter Department:</label>
-
-                                <br>
-                                <div class="ml-3">
-                                    <input type="checkbox" id="title">
-                                    <label for="#title">Title</label>
-
-                                    <br>
-
-                                    <input type="checkbox" id="keyword">
-                                    <label for="#keyword">Keyword</label>
-
-                                    <br>
-
-                                    <input type="checkbox" id="abstract">
-                                    <label for="#abstract">Abstract</label>
-
-                                    <br>
-                                    
-                                    <input type="checkbox" id="content">
-                                    <label for="#content">Content</label>
-                                </div>
-                        <?php } ?>
-
-                        <!-- first column -->
-                    </div>
-
-
-                    <!-- Content -->
-                    <div class="col">
-
-                        <div class="d-flex align-items-center justify-content-center pt-2 sm-hide">
-
-
-                            <!-- Use the 'active class' to change the btn color -->
-                            <?php if (mysqli_num_rows($count_result) > 0) { ?>
-                                <div class="btn-group text-dark">
-
-                                    <button class="btn btn-outline-dark sm-research-fs active">Most relevant</button>
-
-                                    <button class="btn btn-outline-dark sm-research-fs">Most reads</button>
-
-                                    <button class="btn btn-outline-dark sm-research-fs">Most downloads</button>
-                                </div>
-                            <?php } else {
-                                echo '';
-                            } ?>
-
-                        </div>
-
-                        <!-- 0 Margin bottom added -->
-                        <hr class="mb-0">
-
-                        <!-- Here is the whole research study
-                        This part includes the research study details
-                            (titles, authors, abstract, view pdf, download file,
-                            and statistics for reads and downloads)-->
-                        <!-- tab added -->
-                        <div id="research-livesearch1">
-                                            <?php
-                            if (mysqli_num_rows($result) > 0) {
-                            while ($row = mysqli_fetch_array($result)) {
-                            ?>
-
-                                <!------------------------
-                                    Negative margin top removed
-                                -------------------------->
-                                <div class="cards hBg border border-left-0 border-right-0 border-top-0 border-semilightblue">
-
-                                <div class="card-body">
-
-
-                                    <!-- Research studies information -->
-                                    <div class="row">
-
-                                    <!------------------------
-                                        Column set to auto
-                                    -------------------------->
-                                    <div class="col">
-                                        <h4 class="sm-body-font-size"><?php echo $row["Title"] ?></h4><!-- Research title -->
-
-                                        <!-- Author name -->
-                                        <a href="#" class="cLink"><?php echo $row["Author"] ?></a>
-
-                                        <p><?php echo $row['Abstract'] ?></p>
-
-                                        <!------------------------------- 
-                                            Abstract contraction
-                                            For read more and read less
-                                        --------------------------------->
-                                        <p>Lorem ipsum
-                                        <span id="dots">...</span>
-                                        <!-- id "readMore" is not working properly when 2 or more research study displays -->
-                                        <!-- <span id="<php echo $row['RS_ID'];?>"> dolor sit amet</span> -->
-                                        <span id="readMore"> dolor sit amet</span>
-                                        <a href="#" onclick="readAbstract()" id="readBtn" class="cLink">Read more...</a>
-
-                                        </p>
-
-                                        <!-- Read more and less link function -->
-                                        <script src="../js/readAbstract_function.js"></script>
-
-                                        <!-- This might help
-                                            Use HTML's anchors:
-
-                                            Main Page:
-
-                                            <a href="sample.html#sushi">Sushi</a>
-                                            <a href="sample.html#bbq">BBQ</a>
-                                            Sample Page:
-
-                                            <div id='sushi'><a name='sushi'></a></div>
-                                            <div id='bbq'><a name='bbq'></a></div> 
-                                        -->
-
-                                        <!-- Statistics for small media -->
-                                        <p><small class="sm-show-stat">5 Views | 5 Downloads</small></p>
-
-
-                                        <!-- show this when a user is logged in -->
-                                        <?php if (isset($_SESSION['user_id'])) { ?>
-
-                                        <a id="view_href_<?php echo $row['RS_ID'] ?>" type="button" 
-                                            onclick="addDownload(<?php echo $row['RS_ID'] ?>,'download.php?file=<?php echo $row['File'] ?>')" 
-                                            class="fa fa-download btn btn-outline-primary sm-btn-font-size cLink"> Download</a><!-- Download button -->
-
-                                        <a id="download_href_<?php echo $row['RS_ID'] ?>" type="button" 
-                                            onclick="addView(<?php echo $row['RS_ID'] ?>,'../Research_Studies/<?php echo $row['File'] ?>')" 
-                                            class="fa fa-file btn btn-outline-primary sm-btn-font-size cLink"> View PDF</a><!-- View button -->
-
-                                        <?php } else { ?>
-
-                                        <!-- show this when user isn't logged in -->
-
-                                        <a id="view_href_<?php echo $row['RS_ID'] ?>" type="button" onclick="needToLoginDownload()" class="fa fa-download btn btn-outline-primary sm-btn-font-size cLink"> Download</a><!-- Download button -->
-
-                                        <a id="download_href_<?php echo $row['RS_ID'] ?>" type="button" onclick="needToLoginView()" class="fa fa-file btn btn-outline-primary sm-btn-font-size cLink"> View PDF</a><!-- View button -->
-
-                                        <?php } ?>
-
-
-
-                                        <!-- Modal -->
-                                        <div class="modal fade" id="cModalContent_<?php echo $row['RS_ID']; ?>" role="dialog">
-                                        <div class="modal-dialog modal-dialog-scrollable">
-
-                                            <!-- Modal header -->
-                                            <div class="modal-content">
-                                            <div class="modal-title">
-
-                                                <div class="modal-header">
-                                                <div class="btn-group">
-                                                    <!-- Download PDF (logged in)-->
-                                                    <?php if (isset($_SESSION['user_id'])) { ?>
-                                                    <button type="button" onclick="addDownload(<?php echo $row['RS_ID'] ?>,'download.php?file=<?php echo $row['File'] ?>')" class="btn btn-outline-dark fa fa-download sm-btn-font-size"> Download</button><!-- Download button -->
-
-                                                    <!-- View PDF (logged in)-->
-                                                    <button type="submit" onclick="addView(<?php echo $row['RS_ID'] ?>,'../Research_Studies/<?php echo $row['File'] ?>')" class="btn btn-outline-dark fa fa-file sm-btn-font-size"> View PDF</button><!-- View button -->
-                                                    <?php } else { ?>
-                                                    <!-- Download PDF -->
-                                                    <button type="button" onclick="needToLoginDownload()" class="btn btn-outline-dark fa fa-download sm-btn-font-size"> Download</button><!-- Download button -->
-
-                                                    <!-- View PDF -->
-                                                    <button type="submit" onclick="needToLoginView()" class="btn btn-outline-dark fa fa-file sm-btn-font-size"> View PDF</button><!-- View button -->
-                                                    <?php } ?>
-
-                                                </div>
-                                                <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                                </div>
-
-                                            </div>
-
-                                            <!-- Modal details -->
-
-                                            <div class="modal-body">
-                                                <!-- Make the title color black -->
-                                                <!-- Make the hover color blue -->
-
-                                                <div class="cfont cs-2"><?php echo $row['Title'] ?></div><!-- research title -->
-                                                <!-- br removed -->
-                                                <div><a href="#"><?php echo $row['Author'] ?></a></div><!-- author name -->
-
-                                                <hr class="bg-muted">
-
-                                                <p class="text-uppercase">Abstract</p>
-
-                                                <p><?php echo $row['Abstract'] ?></p><!-- research abstract -->
-
-                                            </div>
-
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-outline-danger sm-btn-font-size" data-dismiss="modal">Close</button>
-
-                                            </div>
-
-
-
-
-                                            </div>
-                                        </div>
-                                        </div>
-
-                                        <!-- Mini tab for short details
-                                            This <a> tag represent the button for the whole research study -->
-
-                                        <a href="#cModalContent_<?php echo $row['RS_ID']; ?>" class="stretched-link" data-toggle="modal" data-backdrop="static"></a>
-                                    </div>
-
-                                    <!-- Statistics for large media -->
-
-                                    <!-----------------------------
-                                        Column changed to 2
-                                    ------------------------------->
-                                    <div class="col-2 sm-hide-stat">
-                                        <div class=" pt-2 text-ash">
-                                        <!-- Small tag added -->
-                                        <p id="viewCounts_<?php echo $row['RS_ID'] ?>" class="text-center small"><small>
-                                            <?php if ($row['Views'] === 0) { echo '0'; } else {  echo $row['Views'];} ?>
-                                            <br>Readers</small></p><!-- count of views -->
-
-                                        </div>
-                                        
-
-                                        <div class="pt-2 text-ash">
-                                        <!---------------------
-                                            Small tag added
-                                        ----------------------->
-                                        <p id="downloadCounts_<?php echo $row['RS_ID'] ?>" class="text-center small"><small>
-                                            <?php if ($row['Downloads'] === 0) { echo '0'; } else { echo $row['Downloads'];} ?>
-                                            <br>Downloads</small></p><!-- count of downloads -->
-                                        </div>
-
-
-                                    </div>
-
-                                    </div> <!-- End of research studies information -->
-
-
-                                </div>
-
-
-
-                                </div>
-                            <?php
-                            }
-                            } else {
-                            echo "No Results Found";
-                            } ?>
-                        </div>
-
-                        <!-- The whole research study details ends here -->
-
-
-                        <!-- Pagination -->
-
-                        <div class="container mt-3">
-                            <ul class="pagination justify-content-center">
-                                <?php if ($page > 1) { ?>
-                                    <li class="page-item"><a class="page-link" 
-                                    	href="research_coodinator_page.php?page=<?php echo ($page - 1) ?>">Previous</a></li>
-                                <?php } ?>
-                                <?php for ($i = 1; $i < $number_pages; $i++) { ?>
-                                    <li class="page-itemactive"><a class="page-link" 
-                                    	href="research_coodinator_page.php?page=<?php echo $i ?>"><?php echo $i ?></a></li>
-                                <?php } ?>
-                                <?php if ($i > $page) { ?>
-                                    <li class="page-item"><a class="page-link" 
-                                    	href="research_coodinator_page.php?page=<?php echo ($page + 1) ?>">Next</a></li>
-                                <?php } ?>
-                            </ul>
-
-                        </div>
-
-                        <!-- div for Content -->
-                    </div>
-
-                    <!-- div for row -->
-                </div>
+            <div id="research-content">
+                <!-- contents was on research_pagination.php -->
             </div>
                 <!-- End of Main content -->
 
@@ -909,8 +615,17 @@ if (isset($_GET['query'])) {
                     <?php
                     $sql_student = "SELECT * 
                     FROM student_table 
-                    WHERE student_account_status = 'pending'";
+                    WHERE student_account_status = 'pending'
+                    ORDER BY student_lname ASC
+                    LIMIT $start, $limit";
                     $result_student = $conn->query($sql_student);
+                    //this sql is for getting the number of results
+                    $sql_count_student = " SELECT * 
+                    from student_table 
+                    where student_account_status = 'pending'";
+                    $count_result_student = mysqli_query($conn, $sql_count_student);
+                    $number_pages_student = ceil(mysqli_num_rows($count_result_student) / $limit);
+
                     ?>
                     <!-- first column -->
                         <div class="col-sm-3 sm-hide">
@@ -923,9 +638,6 @@ if (isset($_GET['query'])) {
                             <hr>
 
                             <!-- Account Status -->
-                            <?php if (mysqli_num_rows($result_student) === 0) {
-                                echo '';
-                            }else { ?>
                             <label>Account Status:</label>
                             <div class="dropdown dropright">
                                 <button class="btn btn-outline-secondary dropdown-toggle 
@@ -947,7 +659,7 @@ if (isset($_GET['query'])) {
                             <br>
 
                             <!-- Sort name -->
-
+                        <?php if(mysqli_num_rows($result_student) !== 0){ ?>
                             <label class="mt-2 mb-2">Sort Name:</label>
 
 
@@ -976,7 +688,8 @@ if (isset($_GET['query'])) {
                             <br>
                             <input type="checkbox" id="educ">
                             <label for="#educ">EDUC</label>
-                        <?php } ?>
+
+                        <?php }else { echo ''; } ?>
 
 
                             <!-- first column -->
@@ -985,14 +698,15 @@ if (isset($_GET['query'])) {
                     <!-- second column -->
                     <div class="col">
                         <?php
-                        if (mysqli_num_rows($result_student) > 0) {
-                            while ($row_student = mysqli_fetch_array($result_student)) { ?>
+                        if (mysqli_num_rows($result_student) > 0) { ?>
+                            <p>Student Pending...</p>
+                            <hr>
 
-                        <p>Student Pending...</p>
-                        <hr>
+                        <?php while ($row_student = mysqli_fetch_array($result_student)) { ?>
+
+                        
 
                         <!-- student account starts here -->
-
                                 <!-- Margin top added and col set to 5 -->
                                 <div class="row mt-3" id="border-bg">
                                     <div class="col-sm-5">
@@ -1001,8 +715,7 @@ if (isset($_GET['query'])) {
                                         <p>Name: <?php echo $row_student['student_lname']; ?>,
                                             <?php echo $row_student['student_fname'];  ?> 
                                             <?php echo $row_student['student_mi'] ?></p>
-                                        <!-- Contraction removed -->
-                                        <p>Course, Year, and Section: <?php echo $row_student['student_course']; ?></p>
+                                        <p>CYS: <?php echo $row_student['student_course']; ?></p>
                                         <p>Address: <?php echo $row_student['student_address'] ?></p>
 
 
@@ -1019,18 +732,18 @@ if (isset($_GET['query'])) {
 
                                         <!-- display this for verified section -->
                                         <!--
-                                            <div class="alert alert-info">
-                                                <strong>Verified!</strong>
-                                            </div>
-                                        -->
+                                <div class="alert alert-info">
+                                    <strong>Verified!</strong>
+                                </div>
+                            -->
                                         <!-- Display this for denied section -->
                                         <!--
 
-                                            <div class="alert alert-danger">
-                                                <strong>Denied!</strong>
-                                            </div>
+                                <div class="alert alert-danger">
+                                    <strong>Denied!</strong>
+                                </div>
 
-                                        -->
+                            -->
                                         <!-- ********************************* -->
                                         <!--  Remove the two <br> tags below   -->
                                         <!-- when pending section isn't in use -->
@@ -1062,14 +775,18 @@ if (isset($_GET['query'])) {
                                                         <!-- slideshow -->
                                                         <div class="carousel-inner">
 
-                                                            <!-- width and heigth added -->
                                                             <div class="carousel-item active">
-                                                                <img class="mw-100 mh-100" src="../Student_ID/<?php echo $row_student['student_lname'] . '_' . $row_student['student_fname'] . '_' . $row_student['student_mi'] . '_'; ?>/<?php echo $row_student['student_id_front']; ?>" alt="identification card front" width="500" height="500">
+
+                                                                <?php
+                                                                $sname = $row_student['student_lname'];
+                                                                $fname =  $row_student['student_fname'];
+                                                                $mi = $row_student['student_mi'];
+                                                                $fullname = $sname . ' ' . $fname . ' ' . $mi . ' '; ?>
+                                                                <img class="mw-100 mh-100" src="../Student_ID/<?php echo str_replace(' ', '_', $fullname.'/'); ?><?php echo $row_student['student_id_front']; ?>" alt="identification card front" width="500" height="500">
                                                             </div>
 
-                                                            <!-- width and heigth added -->
                                                             <div class="carousel-item">
-                                                                <img class="mw-100 mh-100" src="../Student_ID/<?php echo $row_student['student_lname'] . '_' . $row_student['student_fname'] . '_' . $row_student['student_mi'] . '_'; ?>/<?php echo $row_student['student_id_back']; ?>" alt="identification card back" width="500" height="500">
+                                                                <img class="mw-100 mh-100" src="../Student_ID/<?php echo str_replace(' ', '_', $fullname.'/'); ?>/<?php echo $row_student['student_id_back']; ?>" alt="identification card back" width="500" height="500">
                                                             </div>
 
 
@@ -1084,6 +801,11 @@ if (isset($_GET['query'])) {
                                                             <span class="fa fa-chevron-right" style="color: #000000"></span>
                                                         </a>
 
+                                                    </div>
+
+                                                    <!-- footer -->
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-outline-danger" data-dismiss="modal">Close</button>
                                                     </div>
 
                                                 </div>
@@ -1103,9 +825,6 @@ if (isset($_GET['query'])) {
 
                         <?php }
                         }else{
-                            // hr removed
-                            // also remove filter in the first column
-
                             echo "No Results Found";
                         }
                             
@@ -1116,12 +835,16 @@ if (isset($_GET['query'])) {
                         <div class="container mt-3">
 
                             <ul class="pagination justify-content-center">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-
+                                <?php if ($page > 1) { ?>
+                                  <li class="page-item"><a class="page-link" href="research_coordinator_page.php?page=<?php echo ($page - 1) ?>">Previous</a></li>
+                                <?php } ?>
+                                <?php for ($i = 1; $i <= $number_pages_student; $i++) { ?>
+                                  <li <?php if($page == $i){?>class="page-item active" <?php } ?>>
+                                    <a class="page-link" href="research_coordinator_page.php?page=<?php echo $i ?>"><?php echo $i ?></a></li>
+                                <?php } ?>
+                                <?php if (($i-1) > $page) { ?>
+                                  <li class="page-item"><a class="page-link" href="research_coordinator_page.php=<?php echo ($page + 1) ?>">Next</a></li>
+                                <?php } ?>
                             </ul>
 
                         </div>
@@ -1169,23 +892,29 @@ if (isset($_GET['query'])) {
                     </form>
                 </div>
 
+            <div id="updateStatusProfessor">
                 <div class="row mt-3">
                     <?php
-                    $sql_professor = "SELECT * FROM professor_table";
+                    $sql_professor = "SELECT * 
+                    FROM professor_table
+                    WHERE professor_account_status = 'pending'
+                    ORDER BY professor_lname ASC
+                    LIMIT $start, $limit";
                     $result_professor = $conn->query($sql_professor);
-                    //count professor accounts
-                    $sql_professor_count = "SELECT COUNT(professor_id) AS professor_count FROM professor_table";
-                    $result_professor_count = $conn->query($sql_professor_count);
-                    $row_professor_count = $result_professor_count->fetch_assoc();
+                    //this sql is for getting the number of results
+                    $sql_count_professor = " SELECT * 
+                    from professor_table 
+                    where professor_account_status = 'pending'";
+                    $count_result_professor = mysqli_query($conn, $sql_count_professor);
+                    $number_pages_professor = ceil(mysqli_num_rows($count_result_professor) / $limit);
                     ?>
 
                     <!-- first column -->
-                    <?php if ($result_student->num_rows > 0) { ?>
                         <div class="col-sm-3 sm-hide">
 
-                            <p><?php if ($row_professor_count != 0) {
-                                    echo $row_professor_count['professor_count'];
-                                } else {
+                            <p><?php if (mysqli_num_rows($result_professor) > 0) {
+                                    echo mysqli_num_rows($result_professor);
+                                } else { 
                                     echo '0';
                                 } ?> Results</p>
                             <hr>
@@ -1213,7 +942,7 @@ if (isset($_GET['query'])) {
                             <br>
 
                             <!-- Sort name -->
-
+                        <?php if(mysqli_num_rows($result_professor) !== 0){ ?>
                             <label class="mt-2 mb-2">Sort Name:</label>
 
 
@@ -1242,31 +971,31 @@ if (isset($_GET['query'])) {
                             <br>
                             <input type="checkbox" id="educ">
                             <label for="#educ">EDUC</label>
+                        <?php } ?>
 
 
 
                             <!-- first column -->
                         </div>
-                    <?php } else { ?>
-                        <p>0 Results</p>
-                    <?php } ?>
 
                     <!-- second column -->
                     <div class="col">
 
-                        <p>Professor Pending...</p>
-                        <hr>
+                        
 
                         <!-- professor account starts here -->
                         <?php
-                        if ($result_professor->num_rows > 0) {
-                            // output data of each row
-                            while ($row_professor = $result_professor->fetch_assoc()) {
-                        ?>
+                        if (mysqli_num_rows($result_professor) > 0) { ?>
+                            <!-- output data of each row -->
 
+                        <p>Professor Pending...</p>
+                        <hr>
+                         <?php   while ($row_professor = mysqli_fetch_array($result_professor)) {
+                        ?>
                                 <!-- Margin top added and col set to 5 -->
                                 <div class="row mt-3" id="border-bg">
                                     <div class="col-sm-5">
+
 
                                         <p>Name: <?php echo $row_professor['professor_lname']; ?>, <?php echo $row_professor['professor_fname'] . ' ' . $row_professor['professor_mi']; ?></p>
                                         <p>Department: <?php echo $row_professor['professor_department']; ?></p>
@@ -1278,8 +1007,8 @@ if (isset($_GET['query'])) {
                                     <div class="col-sm-4">
                                         <!-- Display this for pending section -->
 
-                                        <button class="btn btn-danger w-btn-acc sm-btn-font-size">Deny</button>
-                                        <button class="btn btn-primary w-btn-acc sm-btn-font-size">Verify</button>
+                                        <button onclick="denyProfessor(<?php echo $row_professor['professor_id'] ?>)" class="btn btn-danger w-btn-acc sm-btn-font-size">Deny</button>
+                                        <button onclick="verifyProfessor(<?php echo $row_professor['professor_id'] ?>)" class="btn btn-primary w-btn-acc sm-btn-font-size">Verify</button>
 
 
                                         <!-- display this for verified section -->
@@ -1326,15 +1055,18 @@ if (isset($_GET['query'])) {
 
                                                         <!-- slideshow -->
                                                         <div class="carousel-inner">
-                                                        
-                                                            <!-- width and heigth added -->
+
                                                             <div class="carousel-item active">
-                                                                <img class="mw-100 mh-100" src="../Professor_ID/<?php echo $row_professor['professor_lname'] . '_' . $row_professor['professor_fname'] . '_' . $row_professor['professor_mi'] . '_'; ?>/<?php echo $row_professor['professor_id_front']; ?>" alt="identification card front" width="500" height="500">
+                                                                <?php
+                                                                $sname = $row_professor['professor_lname'];
+                                                                $fname =  $row_professor['professor_fname'];
+                                                                $mi = $row_professor['professor_mi'];
+                                                                $fullname = $sname . ' ' . $fname . ' ' . $mi . ' '; ?>
+                                                                <img class="mw-100 mh-100" src="../Professor_ID/<?php echo str_replace(' ', '_', $fullname); ?>/<?php echo $row_professor['professor_id_front']; ?>" alt="identification card front" width="500" height="500">
                                                             </div>
 
-                                                            <!-- width and heigth added -->
                                                             <div class="carousel-item">
-                                                                <img class="mw-100 mh-100" src="../Professor_ID/<?php echo $row_professor['professor_lname'] . '_' . $row_professor['professor_fname'] . '_' . $row_professor['professor_mi'] . '_'; ?>/<?php echo $row_professor['professor_id_back']; ?>" alt="identification card back" width="500" height="500">
+                                                                <img class="mw-100 mh-100" src="../Professor_ID/<?php echo str_replace(' ', '_', $fullname); ?>/<?php echo $row_professor['professor_id_back']; ?>" alt="identification card back" width="500" height="500">
                                                             </div>
 
 
@@ -1371,6 +1103,8 @@ if (isset($_GET['query'])) {
                                     <!-- professor account ends here -->
                                 </div>
                         <?php }
+                        }else {
+                            echo "No Results Found";
                         } ?>
 
                         <!-- Pagination -->
@@ -1378,12 +1112,16 @@ if (isset($_GET['query'])) {
                         <div class="container mt-3">
 
                             <ul class="pagination justify-content-center">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-
+                                <?php if ($page > 1) { ?>
+                                  <li class="page-item"><a class="page-link" href="research_coordinator_page.php?page=<?php echo ($page - 1) ?>">Previous</a></li>
+                                <?php } ?>
+                                <?php for ($i = 1; $i <= $number_pages_professor; $i++) { ?>
+                                  <li <?php if($page == $i){?>class="page-item active" <?php } ?>>
+                                    <a class="page-link" href="research_coordinator_page.php?page=<?php echo $i ?>"><?php echo $i ?></a></li>
+                                <?php } ?>
+                                <?php if (($i-1) > $page) { ?>
+                                  <li class="page-item"><a class="page-link" href="research_coordinator_page.php=<?php echo ($page + 1) ?>">Next</a></li>
+                                <?php } ?>
                             </ul>
 
                         </div>
@@ -1396,6 +1134,7 @@ if (isset($_GET['query'])) {
 
                     <!-- row -->
                 </div>
+            </div>
 
                 <!-- Professor tab -->
             </div>
@@ -1432,23 +1171,28 @@ if (isset($_GET['query'])) {
                 <div class="row mt-3">
 
                     <?php
-                    $sql_admin = "SELECT * FROM admin_table";
+                    $sql_admin = "SELECT * 
+                    FROM admin_table
+                    ORDER BY admin_lname ASC
+                    LIMIT $start, $limit";
                     $result_admin = $conn->query($sql_admin);
-                    //count admin accounts
-                    $sql_admin_count = "SELECT COUNT(admin_id) AS admin_count FROM admin_table";
-                    $result_admin_count = $conn->query($sql_admin_count);
-                    $row_admin_count = $result_admin_count->fetch_assoc();
+                    //this sql is for getting the number of results
+                    $sql_count_admin = " SELECT * 
+                    from admin_table";
+                    $count_result_admin = mysqli_query($conn, $sql_count_admin);
+                    $number_pages_admin = ceil(mysqli_num_rows($count_result_admin) / $limit);
                     ?>
 
                     <!-- first column -->
                     <div class="col-sm-3 sm-hide">
 
-                        <p><?php if ($row_admin_count['admin_count'] != 0) {
-                            echo $row_admin_count['admin_count'];
+                        <p id="admin_results"><?php if (mysqli_num_rows($count_result_admin) > 0) {
+                            echo mysqli_num_rows($count_result_admin);
                         }else {
                             echo '0';
                         } ?> Results</p>
                         <hr>
+                    <?php if(mysqli_num_rows($result_admin) !== 0){ ?>
                         <!-- Sort name -->
 
                         <label class="mb-2">Sort Name:</label>
@@ -1468,11 +1212,11 @@ if (isset($_GET['query'])) {
                         </div>
 
                         <br>
+                    <?php } ?>
 
                         <!-- Create account -->
                         <label class="mr-2">Create account:</label>
                         <br>
-                        <!-- Icon + added -->
                         <button data-target="#createAdmin_mc" data-toggle="modal" class="btn btn-outline-primary">+ Append</button>
 
                         <!-- Modal for creating admin account -->
@@ -1489,7 +1233,7 @@ if (isset($_GET['query'])) {
                                     <!-- modal body -->
                                     <div class="modal-body">
 
-                                        <form id="register_form" action="insert.php" method="post" class="needs-validation
+                                        <form id="register_form" method="post" class="needs-validation
                                                 p-4 mx-auto mb-3">
 
                                             <!-- Name -->
@@ -1498,9 +1242,9 @@ if (isset($_GET['query'])) {
                                                 <!-- Forename field -->
 
                                                 <div class="form-group col-sm-5 needs-validation">
-                                                    <label for="form_fname">Forename:</label>
+                                                    <label for="form_fname_admin">Forename:</label>
 
-                                                    <input type="text" class="form-control" id="form_fname" placeholder="Forename" name="form_fname" minlength="2" maxlength="30" required>
+                                                    <input type="text" class="form-control" id="form_fname_admin" placeholder="Forename" name="form_fname_admin" minlength="2" maxlength="30" required>
 
 
                                                 </div>
@@ -1508,8 +1252,8 @@ if (isset($_GET['query'])) {
                                                 <!-- Middle initial field -->
 
                                                 <div class="form-group col-sm-2 needs-validation">
-                                                    <label for="form_mi">M.I.:</label>
-                                                    <input type="text" name="form_mi" id="form_mi" placeholder="M.I." class="form-control" maxlength="5">
+                                                    <label for="form_mi_admin">M.I.:</label>
+                                                    <input type="text" name="form_mi_admin" id="form_mi_admin" placeholder="M.I." class="form-control" maxlength="5">
 
                                                 </div>
 
@@ -1517,8 +1261,8 @@ if (isset($_GET['query'])) {
 
                                                 <div class="form-group col-sm-5 needs-validation">
 
-                                                    <label for="form_sname">Surname:</label>
-                                                    <input type="text" name="form_sname" id="form_sname" placeholder="Surname" class="form-control" maxlength="30" minlength="1" required>
+                                                    <label for="form_sname_admin">Surname:</label>
+                                                    <input type="text" name="form_sname_admin" id="form_sname_admin" placeholder="Surname" class="form-control" maxlength="30" minlength="1" required>
                                                 </div>
 
                                             </div>
@@ -1526,9 +1270,9 @@ if (isset($_GET['query'])) {
                                             <!-- Username field -->
 
                                             <div class="form-group">
-                                                <label for="form_fname">Username:</label>
+                                                <label for="form_fname_admin">Username:</label>
 
-                                                <input type="text" class="form-control" id="form_uname" placeholder="Username" name="form_uname" minlength="2" maxlength="30" required>
+                                                <input type="text" class="form-control" id="form_uname_admin" placeholder="Username" name="form_uname_admin" minlength="2" maxlength="30" required>
 
                                             </div>
 
@@ -1536,8 +1280,8 @@ if (isset($_GET['query'])) {
 
 
                                             <div class="form-group mt-2">
-                                                <label for="form_pass">Passsword:</label>
-                                                <input type="password" name="form_pass" id="form_pass" placeholder="Password" class="form-control" maxlength="30" minlength="8" required>
+                                                <label for="form_pass_admin">Passsword:</label>
+                                                <input type="password" name="form_pass_admin" id="form_pass_admin" placeholder="Password" class="form-control" maxlength="30" minlength="8" required>
 
                                             </div>
 
@@ -1545,14 +1289,14 @@ if (isset($_GET['query'])) {
 
 
                                             <div class="form-group mt-2">
-                                                <label for="form_repass">Retype Passsword:</label>
-                                                <input type="password" name="form_repass" id="form_repass" placeholder="Retype Password" class="form-control" maxlength="30" minlength="8" required>
+                                                <label for="form_repass_admin">Retype Passsword:</label>
+                                                <input type="password" name="form_repass_admin" id="form_repass_admin" placeholder="Retype Password" class="form-control" maxlength="30" minlength="8" required>
 
                                             </div>
 
                                             <!-- Register btn -->
                                             <div class="col d-flex justify-content-end">
-                                                <button type="submit" class="btn btn-primary">Create</button>
+                                                <button onclick="createAdmin();" type="button" class="btn btn-primary">Create</button>
                                             </div>
 
 
@@ -1595,21 +1339,21 @@ if (isset($_GET['query'])) {
                     <!-- second column -->
                     <div class="col">
 
-                        <p>Admin account list...</p>
-                        <hr>
-
+                        
+                    <div id="admin_accounts">
                         <!-- admin account starts here -->
                         <?php
-                        if ($result_admin->num_rows > 0) {
-                            // output data of each row
-                            while ($row_admin = $result_admin->fetch_assoc()) {
+                        if (mysqli_num_rows($result_admin) > 0) { ?>
+                        <p>Admin account list...</p>
+                        <hr>
+                             <!-- output data of each row -->
+                            <?php while ($row_admin = mysqli_fetch_array($result_admin)) {
                         ?>
-                        <!-- Margin top added and col set to 5 -->
-                        <div id="border-bg" class="row mt-3">
-                            <div class="col-sm-5">
+                        <div class="row" id="border-bg">
+                            <div class="col-sm-8">
 
-                                <!-- No middle name here? -->
-                                <p>Name: <?php echo $row_admin['admin_lname'] ?>, <?php echo $row_admin['admin_fname'] ?></p>
+
+                                <p>Name: <?php echo $row_admin['admin_lname']; ?>, <?php echo $row_admin['admin_fname'].' '.$row_admin['admin_mi']; ?></p>
                                 <p>Username: <?php echo $row_admin['admin_username']; ?></p>
 
 
@@ -1629,19 +1373,24 @@ if (isset($_GET['query'])) {
                         </div>
                         <?php }
                         } ?>
+                    </div>
 
 
                         <!-- Pagination -->
 
-                        <div class="container mt-3">
+                        <div id="admin_page" class="container mt-3">
 
                             <ul class="pagination justify-content-center">
-                                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                <li class="page-item"><a class="page-link" href="#">Next</a></li>
-
+                                <?php if ($page > 1) { ?>
+                                  <li class="page-item"><a class="page-link" href="research_coordinator_page.php?page=<?php echo ($page - 1) ?>">Previous</a></li>
+                                <?php } ?>
+                                <?php for ($i = 1; $i <= $number_pages_admin; $i++) { ?>
+                                  <li <?php if($page == $i){?>class="page-item active" <?php } ?>>
+                                    <a class="page-link" href="research_coordinator_page.php?page=<?php echo $i ?>"><?php echo $i ?></a></li>
+                                <?php } ?>
+                                <?php if (($i-1) > $page) { ?>
+                                  <li class="page-item"><a class="page-link" href="research_coordinator_page.php=<?php echo ($page + 1) ?>">Next</a></li>
+                                <?php } ?>
                             </ul>
 
                         </div>
@@ -1712,7 +1461,11 @@ if (isset($_GET['query'])) {
     <script src="../js/admin_research_search.js"></script>
     <script src="../js/addCount.js"></script>
     <script src="../js/verifyAccount.js"></script>
-
+    <script src="../js/registration_admin_script.js"></script>
+    <script src="../js/login.js"></script>
+    <script src="../js/readAbstract_function.js"></script>
+    <script src="../js/pagination.js"></script>
+    <script src="../js/needToLogin.js"></script>
 </body>
 
 </html>

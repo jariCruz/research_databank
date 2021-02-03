@@ -5,7 +5,7 @@ if (isset($_GET['term'])) {
   $search = $_GET['term'];
   $json = array();
 
-  $sql = " SELECT DISTINCT Keywords from researchstudy_table 
+  $sql = " SELECT DISTINCT Title from researchstudy_table 
   where Title LIKE '%$search%' OR Keywords LIKE '%$search%' OR Abstract LIKE '%$search%' 
   ORDER BY Title ASC";
   $result = $conn->query($sql);
@@ -13,7 +13,7 @@ if (isset($_GET['term'])) {
   if (mysqli_num_rows($result) > 0) {
     while ($row = mysqli_fetch_array($result)) {
 
-      array_push($json, $row['Keywords']);
+      array_push($json, $row['Title']);
     }
   } else {
     array_push($json, "No results found");

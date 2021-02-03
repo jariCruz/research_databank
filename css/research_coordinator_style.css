@@ -91,8 +91,12 @@ display: none;
   background-color: #e6fff7;
 
 } 
+/*swal text*/
+.swal-text {
+  text-align: center;
+}
 
 /* Read more */
 #readMore {
   display: none;
-}
+} 

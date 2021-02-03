@@ -159,15 +159,14 @@ include "php/server.php";
               <div class="col mt-n3 mb-n3 modal-hover modal-height
                           d-flex align-items-center justify-content-center">
 
-                        <a class="stretched-link" data-dismiss="modal" href="#" data-toggle="modal" data-target="#create-student_mc">Student</a>
-                        
+                    <a class="stretched-link" data-dismiss="modal" href="#" data-toggle="modal" data-target="#create-student_mc">Student</a>
               </div>
 
             <!-- Professor -->
               <div class="col mt-n3 mb-n3 modal-hover modal-height
                           d-flex align-items-center justify-content-center">
                 
-                          <a class="stretched-link" data-dismiss="modal" href="#" data-toggle="modal" data-target="#create-professor_mc">Professor</a>
+                  <a class="stretched-link" data-dismiss="modal" href="#" data-toggle="modal" data-target="#create-professor_mc">Professor</a>
               </div>
               
             </div>
@@ -184,23 +183,23 @@ include "php/server.php";
     <!-- modal -->
     </div>
 
-    <!-- Modal for creating student account -->
+        <!-- Modal for creating student account -->
     <div class="modal fade" id="create-student_mc">
       <div class="modal-dialog modal-dialog-scrollable">
           <div class="modal-content">
-                  
+
               <!-- modal header -->
               <div class="modal-header">
-              
+
                   <h5 class="header-font">A student is registering...</h5>
                   <button class="close" data-dismiss="modal">&times;</button>
               </div>
 
               <!-- modal body -->
               <div class="modal-body">
-                
 
-                <form id="register_form" 
+
+                <form id="register_form_student" 
                         action="registration_page_student_function.php" 
                         method="post" 
                         enctype="multipart/form-data"
@@ -209,17 +208,17 @@ include "php/server.php";
 
                 <!-- Name -->    
                 <div class="form-row">
-                    
+
                     <!-- Forename field -->
 
                     <div class="form-group col-sm-5 needs-validation">
-                        <label for="form_fname">Forename:</label>
-                        
+                        <label for="form_fname_student">Forename:</label>
+
                         <input type="text"
                                 class="form-control"
-                                id="form_fname"
+                                id="form_fname_student"
                                 placeholder="Forename"
-                                name="form_fname"
+                                name="form_fname_student"
                                 minlength="2"
                                 maxlength="30"
                                 required>                    
@@ -230,10 +229,10 @@ include "php/server.php";
                     <!-- Middle initial field -->
 
                     <div class="form-group col-sm-2 needs-validation">
-                        <label for="form_mi">M.I.:</label>
+                        <label for="form_mi_student">M.I.:</label>
                         <input type="text"
-                                name="form_mi"
-                                id="form_mi"
+                                name="form_mi_student"
+                                id="form_mi_student"
                                 placeholder="M.I."
                                 class="form-control"
                                 maxlength="5">
@@ -244,10 +243,10 @@ include "php/server.php";
 
                     <div class="form-group col-sm-5 needs-validation">
 
-                        <label for="form_sname">Surname:</label>
+                        <label for="form_sname_student">Surname:</label>
                         <input type="text"
-                                name="form_sname"
-                                id="form_sname"
+                                name="form_sname_student"
+                                id="form_sname_student"
                                 placeholder="Surname"
                                 class="form-control"
                                 maxlength="30"
@@ -258,23 +257,23 @@ include "php/server.php";
                 </div>
 
                 <!-- Identification card -->
-                    
+
                 <div class="custom-file form-group needs-validation">
-                <label for="form_file1">Identification card:</label>
-                        
+                <label for="form_file1_student">Identification card:</label>
+
                     <!-- Front -->
                     <input type="file"
-                            name="form_file1"
-                            id="form_file1"
+                            name="form_file1_student"
+                            id="form_file1_student"
                             class="custom-file-input"
                             accept="image/*"
                             required>
-                    <label for="form_file1" class="custom-file-label front mt-4">Front</label>
+                    <label for="form_file1_student" class="custom-file-label front mt-4">Front</label>
 
                     <!-- Script for adding the name of file to the label -->
-                    
+
                     <script>
-                        $('#form_file1').on('change', function(e){
+                        $('#form_file1_student').on('change', function(e){
                             // Get file name
                             var fileName = e.target.files[0].name;
 
@@ -288,19 +287,19 @@ include "php/server.php";
 
                 <!-- Back -->
                 <div class="custom-file form-group needs-validation">
-                    
+
                     <input type="file"
-                            name="form_file2"
-                            id="form_file2"
+                            name="form_file2_student"
+                            id="form_file2_student"
                             class="custom-file-input"
                             accept="image/*"
                             required>
-                    <label for="form_file2" class="custom-file-label back mt-2">Back</label>
+                    <label for="form_file2_student" class="custom-file-label back mt-2">Back</label>
 
                     <!-- Script for adding the name of file to the label -->
-                    
+
                     <script>
-                        $('#form_file2').on('change', function(e){
+                        $('#form_file2_student').on('change', function(e){
                             // Get file name
                             var fileName = e.target.files[0].name;
 
@@ -317,7 +316,7 @@ include "php/server.php";
                 <!-- Checkbox for alumnus -->
                 <div class="form-group mt-4">
 
-                    <input id="form_alumnus" name="form_alumnus" type="checkbox" value="yes"
+                    <input id="form_alumnus_student" name="form_alumnus_student" type="checkbox"
                             onclick="lessAlumnus()"> I am an Alumnus.</input>
 
 
@@ -329,11 +328,11 @@ include "php/server.php";
                 <div class="row ml-1">
                     <span id="dotss"></span>
                     <div class="form-group mr-1 needs-validation" id="more">
-                            <label for="form_year">Year level:</label>
+                            <label for="form_year_student">Year level:</label>
 
 
-                            <select name="form_year"
-                                    id="form_year"
+                            <select name="form_year_student"
+                                    id="form_year_student"
                                     class="form-control
                                             select-picker
                                             border-muted"
@@ -353,10 +352,10 @@ include "php/server.php";
 
 
                     <div class="form-group needs-validation">
-                            <label for="form_course">Course:</label>
+                            <label for="form_course_student">Course:</label>
 
-                            <select name="form_course"
-                                    id="form_course"
+                            <select name="form_course_student"
+                                    id="form_course_student"
                                     class="form-control
                                             select-picker
                                             border-muted"
@@ -375,10 +374,10 @@ include "php/server.php";
                 <!-- Address field -->
 
                 <div class="form-group needs-validation">
-                    <label for="form_address">Address:</label>
+                    <label for="form_address_student">Address:</label>
                     <input type="text"
-                            name="form_address"
-                            id="form_address"
+                            name="form_address_student"
+                            id="form_address_student"
                             placeholder="Address"
                             class="form-control"
                             maxlength="200"
@@ -391,10 +390,10 @@ include "php/server.php";
                 <!-- Username -->
 
                 <div class="form-group needs-validation">
-                    <label for="form_address">Username:</label>
+                    <label for="form_uname_student">Username:</label>
                     <input type="text"
-                            name="form_uname"
-                            id="form_uname"
+                            name="form_uname_student"
+                            id="form_uname_student"
                             placeholder="Username"
                             class="form-control"
                             maxlength="200"
@@ -407,10 +406,10 @@ include "php/server.php";
                 <!-- Password field -->
 
                 <div class="form-group needs-validation">
-                    <label for="form_pass">Passsword:</label>
+                    <label for="form_pass_student">Passsword:</label>
                     <input type="password"
-                            name="form_pass"
-                            id="form_pass"
+                            name="form_pass_student"
+                            id="form_pass_student"
                             placeholder="Password"
                             class="form-control"
                             maxlength="30"
@@ -422,10 +421,10 @@ include "php/server.php";
                 <!-- Retype password field -->
 
                 <div class="form-group needs-validation">
-                    <label for="form_repass">Retype password:</label>
+                    <label for="form_repass_student">Retype password:</label>
                     <input type="password"
-                            name="form_repass"
-                            id="form_repass"
+                            name="form_repass_student"
+                            id="form_repass_student"
                             placeholder="Retype password"
                             class="form-control"
                             maxlength="30"
@@ -438,7 +437,7 @@ include "php/server.php";
 
                 <!-- Checkbox for terms of service and privacy policy -->
                 <div class="form-group">
-                    <input id="form_checkbox" name="form_checkbox" type="checkbox" value="1" required>
+                    <input id="form_checkbox_student" name="form_checkbox_student" type="checkbox" value="1" required>
                     <span>I accept the <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>.</span>
 
 
@@ -446,26 +445,26 @@ include "php/server.php";
 
                 <!-- Register btn -->
                 <div>
-                    <button type="button" class="btn btn-primary" name="registerBtn" id="registerBtn" 
-                    onclick="validate(); submitVal();">Register</button>
+                    <button type="button" class="btn btn-primary" name="registerBtn" 
+                    onclick="validateStudent(); submitValStudent();">Register</button>
 
                 </div>
 
                 <span class="d-flex justify-content-center mt-3">Already have an account?
                 <a data-dismiss="modal" href="#" data-toggle="modal" data-target="#signIn_mc">&MediumSpace;Login here</a>.</span>                
-                    
+
                 <hr>
                 <p class="d-flex justify-content-center my-n3 pt-1">Register as a&MediumSpace;
                 <a data-dismiss="modal" href="#" data-toggle="modal" data-target="#create-professor_mc">professor
                 </a>&MediumSpace;instead.</p>
-                
-                
+
+
 
 
                 </form>
               </div>
 
-      
+
               </div>
 
           </div>
@@ -475,41 +474,37 @@ include "php/server.php";
       <script src="js/registration_student_script.js"></script>
       <!-- Modal for creating student account -->
     </div>
-    
+
     <!-- Modal for creating professor account -->
     <div class="modal fade" id="create-professor_mc">
       <div class="modal-dialog modal-dialog-scrollable">
           <div class="modal-content">
-                  
+
               <!-- modal header -->
               <div class="modal-header">
-              
+
                   <h5 class="header-font">A professor is registering...</h5>
                   <button class="close" data-dismiss="modal">&times;</button>
               </div>
 
               <!-- modal body -->
               <div class="modal-body">
-                
 
-                <form id="register_form" 
-                        action="registration_page_professort_function.php" 
-                        method="post" 
-                        enctype="multipart/form-data"
-                        class="p-3">
+
+                <form id="register_form_professor" onsubmit="return false;" class="p-3">
 
                         <div class="form-row">
-               
+
                   <!-- Forename field -->
 
                   <div class="form-group col-sm-5 needs-validation">
-                      <label for="form_fname">Forename:</label>
-                      
+                      <label for="form_fname_professor">Forename:</label>
+
                       <input type="text"
                               class="form-control"
-                              id="form_fname"
+                              id="form_fname_professor"
                               placeholder="Forename"
-                              name="form_fname"
+                              name="form_fname_professor"
                               minlength="2"
                               maxlength="30"
                               required>
@@ -518,10 +513,10 @@ include "php/server.php";
                   <!-- Middle initial field -->
 
                   <div class="form-group col-sm-2  needs-validation">
-                      <label for="form_mi">M.I.:</label>
+                      <label for="form_mi_professor">M.I.:</label>
                       <input type="text"
-                              name="form_mi"
-                              id="form_mi"
+                              name="form_mi_professor"
+                              id="form_mi_professor"
                               placeholder="M.I."
                               class="form-control"
                               maxlength="5">                
@@ -532,10 +527,10 @@ include "php/server.php";
 
                   <div class="form-group col-sm-5 needs-validation">
 
-                      <label for="form_sname">Surname:</label>
+                      <label for="form_sname_professor">Surname:</label>
                       <input type="text"
-                              name="form_sname"
-                              id="form_sname"
+                              name="form_sname_professor"
+                              id="form_sname_professor"
                               placeholder="Surname"
                               class="form-control"
                               maxlength="30"
@@ -546,11 +541,11 @@ include "php/server.php";
               </div>
 
               <!-- Department field -->
-              
+
 
               <div class="form-group needs-validation">
                       <label for="form_department">Department:</label>
-                      
+
                       <select name="form_department"
                               id="form_department"
                               class="form-control
@@ -562,27 +557,28 @@ include "php/server.php";
                           <option value="BIT Department" required>BIT Department</option>
                           <option value="EDUC Department" required>EDUC Department</option>
                       </select>
-                  
+
               </div>
 
               <!-- Identification card -->
-              
+
               <div class="custom-file form-group needs-validation">
-              <label for="form_file1">Identification card:</label>
-                      
+              <label for="form_file1_professor">Identification card:</label>
+
                   <!-- Front -->
                   <input type="file"
-                          name="form_file1"
-                          id="form_file1"
+                          name="form_file1_professor"
+                          id="form_file1_professor"
                           class="custom-file-input"
                           accept="image/*"
                           required>
-                  <label for="form_file1" class="custom-file-label front mt-4">Front</label>
+                  <label for="form_file1_professor" class="custom-file-label front mt-4">Front</label>
 
                   <!-- Script for adding the name of file to the label -->
-                  
+
                   <script>
-                      $('#form_file1').on('change', function(e){
+                      $('#form_file1_professor').on('change', function(e){
+                        console.log(this);
                           // Get file name
                           var fileName = e.target.files[0].name;
 
@@ -596,19 +592,19 @@ include "php/server.php";
 
                   <!-- Back -->
                   <div class="custom-file form-group needs-validation">
-                      
+
                       <input type="file"
-                              name="form_file2"
-                              id="form_file2"
+                              name="form_file2_professor"
+                              id="form_file2_professor"
                               class="custom-file-input"
                               accept="image/*"
                               required>
-                      <label for="form_file2" class="custom-file-label back mt-2">Back</label>
+                      <label for="form_file2_professor" class="custom-file-label back mt-2">Back</label>
 
                       <!-- Script for adding the name of file to the label -->
-                      
+
                       <script>
-                          $('#form_file2').on('change', function(e){
+                          $('#form_file2_professor').on('change', function(e){
                               // Get file name
                               var fileName = e.target.files[0].name;
 
@@ -618,7 +614,7 @@ include "php/server.php";
 
 
                       </script>
-                  
+
                   </div>
 
 
@@ -626,10 +622,10 @@ include "php/server.php";
               <!-- Address field -->
 
               <div class="form-group mt-3 needs-validation">
-                  <label for="form_address">Address:</label>
+                  <label for="form_address_professor">Address:</label>
                   <input type="text"
-                          name="form_address"
-                          id="form_address"
+                          name="form_address_professor"
+                          id="form_address_professor"
                           placeholder="Address"
                           class="form-control"
                           maxlength="200"
@@ -642,10 +638,10 @@ include "php/server.php";
               <!-- Username -->
 
               <div class="form-group needs-validation">
-                  <label for="form_address">Username:</label>
+                  <label for="form_uname_professor">Username:</label>
                   <input type="text"
-                          name="form_uname"
-                          id="form_uname"
+                          name="form_uname_professor"
+                          id="form_uname_professor"
                           placeholder="Username"
                           class="form-control"
                           maxlength="200"
@@ -659,10 +655,10 @@ include "php/server.php";
 
 
               <div class="form-group needs-validation">
-                  <label for="form_pass">Passsword:</label>
+                  <label for="form_pass_professor">Passsword:</label>
                   <input type="password"
-                          name="form_pass"
-                          id="form_pass"
+                          name="form_pass_professor"
+                          id="form_pass_professor"
                           placeholder="Password"
                           class="form-control"
                           maxlength="30"
@@ -674,10 +670,10 @@ include "php/server.php";
               <!-- Retype password field -->
 
               <div class="form-group needs-validation">
-                  <label for="form_repass">Retype password:</label>
+                  <label for="form_repass_professor">Retype password:</label>
                   <input type="password"
-                          name="form_repass"
-                          id="form_repass"
+                          name="form_repass_professor"
+                          id="form_repass_professor"
                           placeholder="Retype password"
                           class="form-control"
                           maxlength="30"
@@ -685,34 +681,34 @@ include "php/server.php";
                           required>
 
               </div>
-              
+
               <!-- Checkbox -->
               <div class="form-group needs-validation">
-                  <input id="form_checkbox" name="form_checkbox" type="checkbox" value="1" required>
+                  <input id="form_checkbox_professor" name="form_checkbox_professor" type="checkbox" value="1" required>
                   <span>I accept the <a href="#">Terms of Service</a> & <a href="#">Privacy Policy</a>.</span>
 
               </div>
 
               <!-- Register btn -->
               <div>
-                  <button type="button" class="btn btn-primary"  name="registerBtn" id="registerBtn" 
-                  onclick="validate(); submitVal();">Register</button>
+                  <button type="submit" class="btn btn-primary"  name="registerBtn"
+                  onclick="submitValProfessor();">Register</button>
 
               </div>
 
               <span class="d-flex justify-content-center mt-3">Already have an account?
               <a data-dismiss="modal" href="#" data-toggle="modal" data-target="#signIn_mc">&MediumSpace;Login here</a>.</span>                
-                  
+
               <hr>
               <p class="d-flex justify-content-center my-n3 pt-1">Register as a&MediumSpace;
               <a data-dismiss="modal" href="#" data-toggle="modal" data-target="#create-student_mc">student
               </a>&MediumSpace;instead.</p>
 
-      
+
           </form>
               </div>
 
-      
+
               </div>
 
           </div>
@@ -722,8 +718,6 @@ include "php/server.php";
       <script src="js/registration_professor_script.js"></script>
       <!-- Modal for creating professor account -->
     </div>
-    
-
 
     <!-- Modal for sign in -->
     <div class="modal fade" id="signIn_mc">
@@ -739,22 +733,22 @@ include "php/server.php";
               <!-- modal body -->
               <div class="modal-body">
 
-                  <form action="php/login_function.php" method="post"
+                  <form id="login-form" onsubmit="return false;"
                           class="needs-validation
                                   mx-auto mb-3">
                       
                       
-                      <!-- Forename field -->
+                      <!-- username field -->
 
                       <div class="form-group">
-                          <label for="form_fname">Username:</label>
+                          <label for="form_uname_login">Username:</label>
                           
                           <input type="text"
                                   class="form-control"
-                                  id="form_uname"
+                                  id="form_uname_login"
                                   placeholder="Username"
                                   name="form_uname"
-                                  minlength="2"
+                                  minlength="4"
                                   maxlength="30"
                                   required>                
 
@@ -764,10 +758,10 @@ include "php/server.php";
 
 
                       <div class="form-group mt-2">
-                          <label for="form_pass">Passsword:</label>
+                          <label for="form_pass_login">Passsword:</label>
                           <input type="password"
-                                  name="form_pass"
-                                  id="form_pass"
+                                  name="form_pass_login"
+                                  id="form_pass_login"
                                   placeholder="Password"
                                   class="form-control"
                                   maxlength="30"
@@ -775,7 +769,7 @@ include "php/server.php";
                                   required>
 
                       </div>
-                      <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']) ?>" />
+                      <input type="hidden" id="redirect" name="redirect" value="<?php echo htmlspecialchars($_SERVER['REQUEST_URI']) ?>" />
 
                       
                       <!-- Checkbox -->
@@ -789,7 +783,8 @@ include "php/server.php";
 
                           <!-- Register btn -->
                           <div class="col d-flex justify-content-end">
-                              <button name="login-submit" id="login-submit" type="submit" class="btn btn-primary">Login</button>
+                              <button name="login-submit" id="login-submit" onclick="login()" 
+                              type="submit" class="btn btn-primary">Login</button>
                           </div>
                       
                       </div>
@@ -838,7 +833,7 @@ include "php/server.php";
           </div>
     </div>
 
-
+    
 
     <!-- body -->
 
@@ -866,50 +861,46 @@ include "php/server.php";
 
         <!-- Most search keywords -->
 
-        <div class="container-fluid">
-          <div class="row">
+       <!--  <div class="container-fluid">
+          <div class="row"> -->
 
             <?php  
-            $sql = "SELECT Title FROM researchstudy_table ORDER BY Views DESC";
-            $result = $conn->query($sql);
-            $mostViewed = array();
-            $x = 0;
+            // $sql = "SELECT Title FROM researchstudy_table ORDER BY Views DESC";
+            // $result = $conn->query($sql);
+            // $mostViewed = array();
+            // $x = 0;
 
-            if ($result->num_rows > 0) {
-              // output data of each row
-              while ($row = $result->fetch_assoc()) {
-              $x++;
-              $mostViewed[$x] = $row['Title'];
-              }
-            } else {
-              echo "0 results";
-            }
+            // if ($result->num_rows > 0) {
+            //   // output data of each row
+            //   while ($row = $result->fetch_assoc()) {
+            //   $x++;
+            //   $mostViewed[$x] = $row['Title'];
+            //   }
+            // } else {
+            //   echo "0 results";
+            // }
             ?>
-            <!-- Margin added -->
-            <h6 class="mr-2">Most Viewed:</h6>
+            <!-- <h6 class="mr-2">Most Viewed:</h6>
 
             
             <div>
-            <!-- Underline link added -->
-              <a href="#"><?php echo '<u>'.$mostViewed[1].'</u>'; ?></a>
+              <a href="#"><?php //echo '<u>'.$mostViewed[1].'</u>'; ?></a>
             </div>
+
+            Margin changed to space -->
+            <!-- <span>&ThickSpace;&ThickSpace;</span> -->
+
+            <!-- <div> -->
+              <!-- <a href="#"><?php //x`echo '<u>'.$mostViewed[2].'</u>'; ?></a> -->
+            <!-- </div> -->
 
             <!-- Margin changed to space -->
-            <span>&ThickSpace;&ThickSpace;</span>
-            
-            <div>
-            <!-- Underline link added -->
-              <a href="#"><?php echo '<u>'.$mostViewed[2].'</u>'; ?></a>
-            </div>
+            <!-- <span>&ThickSpace;&ThickSpace;</span> -->
 
-            <!-- Margin changed to space -->
-            <span>&ThickSpace;&ThickSpace;</span>
-
-            <div>
-            <!-- Underline link added -->
-              <a href="#"><?php echo '<u>'.$mostViewed[3].'</u>'; ?></a>
-            </div>
-            </ul>
+            <!-- <div> -->
+              <!-- <a href="#"><?php// echo '<u>'.$mostViewed[3].'</u>'; ?></a> -->
+            <!-- </div> -->
+            <!-- </ul> -->
 
 
 
@@ -924,7 +915,7 @@ include "php/server.php";
   <div class="jumbotron jumbotron-fluid
                 jumbotron-bg-black text-white">
     <div class="container">
-      
+
       <!-- Information modified -->
       <!-- Note: Change all jumbotron -->
       <h2 class="header-font">Bond With Us!</h2>
@@ -973,6 +964,7 @@ include "php/server.php";
 
   <script>
     $(function() {
+      $('.ui-autocomplete-input').css('width','12px');
         $("#search-input").autocomplete({
             source: "php/action.php",
             select: function(event, ui) {   
@@ -982,6 +974,11 @@ include "php/server.php";
         });
     });
     </script>
+    <!-- sweet alert -->
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/js/login.js"></script>
+    <script src="/js/registration_professor_script.js"></script>
+    <script src="/js/registration_student_script.js"></script>
 </body>
 
 </html>

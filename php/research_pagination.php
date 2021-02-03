@@ -1,39 +1,32 @@
 <?php
 
-  // Connect database 
+	// Connect database 
 
-  require_once('server.php');
+	require_once('server.php');
 
-  $limit = 5;
+	$limit = 5;
 
-  if (isset($_POST['page_no'])) {
-      $page_no = $_POST['page_no'];
-  }else{
-      $page_no = 1;
-  }
-  if (isset($_POST['query'])) {
-    $search = $_POST['query'];
-  }
+	if (isset($_POST['page_no'])) {
+	    $page_no = $_POST['page_no'];
+	}else{
+	    $page_no = 1;
+	}
 
-  $offset = ($page_no-1) * $limit;
+	$offset = ($page_no-1) * $limit;
 
-  $query = "SELECT * 
-  FROM researchstudy_table 
-  WHERE Title LIKE '%$search%' OR Keywords LIKE '%$search%' OR Abstract LIKE '%$search%'
-  ORDER BY Title ASC 
-  LIMIT $offset, $limit";
+	$query = "SELECT * FROM researchstudy_table 
+	ORDER BY Title ASC 
+	LIMIT $offset, $limit";
 
-  // this sql is for getting counts
-  $sql_count = " SELECT * 
-  FROM researchstudy_table 
-  WHERE Title LIKE '%$search%' OR Keywords LIKE '%$search%' OR Abstract LIKE '%$search%'";
-  $count_result = mysqli_query($conn, $sql_count);
+	// this sql is for getting counts
+	$sql_count = " SELECT * from researchstudy_table ";
+	$count_result = mysqli_query($conn, $sql_count);
 
-  $result = mysqli_query($conn, $query);
+	$result = mysqli_query($conn, $query);
 
-  $output = "";
+	$output = "";
 
-  $output.='<div class="row">
+	$output.='<div class="row">
 
                     <!-- first column -->
                     <div class="col-sm-3 pl-4 pt-4 sm-hide">
@@ -101,11 +94,11 @@
 
                         $output.='</div>';
 
-  if (mysqli_num_rows($result) > 0) {
-    $output.= '<hr class="mb-0">';
-  while ($row = mysqli_fetch_assoc($result)) {
+	if (mysqli_num_rows($result) > 0) {
+		$output.= '<hr class="mb-0">';
+	while ($row = mysqli_fetch_assoc($result)) {
 
-  $output.='<div class="cards hBg border border-left-0 border-right-0 border-top-0 border-semilightblue">
+	$output.='<div class="cards hBg border border-left-0 border-right-0 border-top-0 border-semilightblue">
 
               <div class="card-body">
 
@@ -133,15 +126,15 @@
                     if ($row["Views"] === 0) {
                        $output.="0";
                     } else {  
-                      $row["Views"];
-                    };
+                    	$row["Views"];
+                    }
                     $output.=' Views |'; 
                     if ($row["Downloads"] === 0) {  
-                           $output.="0"; 
+                        	 $output.="0"; 
                         } else {  
-                          $row["Downloads"]; 
-                          };
-                          $output.=' Downloads
+                        	$row["Downloads"]; 
+                        	}
+                        	$output.=' Downloads
                       </small></p>
 
                     <!-- show this when a user is logged in -->';
@@ -165,7 +158,7 @@
                                             <a id="download_href_'.$row["RS_ID"].'" type="button" 
                                               onclick="needToLoginView()" class="fa fa-file btn btn-outline-primary sm-btn-font-size cLink"> View PDF</a><!-- View button -->';
 
-                    };
+                    }
 
 
 
@@ -193,7 +186,7 @@
                                   
                                                                     <!-- View PDF -->
                                                                     <button type="submit" onclick="needToLoginView()" class="btn btn-outline-dark fa fa-file sm-btn-font-size"> View PDF</button><!-- View button -->';
-                                };
+                                }
 
                               $output.='</div>
                                                             <button type="button" class="close" data-dismiss="modal">&times;</button>
@@ -242,10 +235,10 @@
                                                   <div class=" pt-2 text-ash">
                                                     <p id="viewCounts_'.$row["RS_ID"].'" class="text-center small"><small>';
                         if ($row["Views"] === 0) { 
-                          $output.="0"; 
+                        	$output.="0"; 
                         } else {  
-                          $output.=$row["Views"];
-                          };
+                        	$output.=$row["Views"];
+                        	}
 
                         $output.='<br>Readers</small></p><!-- count of views -->
                         
@@ -254,10 +247,10 @@
                                             <div class="pt-2 text-ash">
                                               <p id="downloadCounts_'.$row["RS_ID"].'" class="text-center small"><small>';
                         if ($row["Downloads"] === 0) { 
-                          $output.="0"; 
+                        	$output.="0"; 
                         } else { 
-                          $output.=$row["Downloads"];
-                          }
+                        	$output.=$row["Downloads"];
+                        	}
 
                         $output.='<br>Downloads</small></p><!-- count of downloads -->
                     </div>
@@ -270,36 +263,35 @@
 
               </div>
             </div>';
-  }
-  $output.='</div>
-    </div>';
+	}
+	$output.='</div>
+		</div>';
 
-  $sql = "SELECT * FROM researchstudy_table";
+	$sql = "SELECT * FROM researchstudy_table";
 
-  $records = mysqli_query($conn, $sql);
+	$records = mysqli_query($conn, $sql);
 
-  $totalRecords = mysqli_num_rows($records);
+	$totalRecords = mysqli_num_rows($records);
 
-  $totalPage = ceil($totalRecords/$limit);
+	$totalPage = ceil($totalRecords/$limit);
 
-  $output.='<div class="container mt-3">';
-  $output.="<ul class='pagination justify-content-center' style='margin:20px 0'>";
+	$output.='<div class="container mt-3">';
+	$output.="<ul class='pagination justify-content-center' style='margin:20px 0'>";
 
-  for ($i=1; $i <= $totalPage ; $i++) { 
-     if ($i == $page_no) {
-    $active = "active";
-     }else{
-    $active = "";
-     }
+	for ($i=1; $i <= $totalPage ; $i++) { 
+	   if ($i == $page_no) {
+		$active = "active";
+	   }else{
+		$active = "";
+	   }
 
-      $output.="<li class='page-item $active'><a class='page-link' id='$i' href=''>$i</a></li>";
-  }
+	    $output.="<li class='page-item $active'><a class='page-link' id='$i' href=''>$i</a></li>";
+	}
 
-  $output.= "</ul>";
-  $output.='</div>';
+	$output.= "</ul>";
+	$output.='</div>';
 
-  }
-  $output.="No Result Found";
+	
 
-  //echo response
+	}
   echo $output;

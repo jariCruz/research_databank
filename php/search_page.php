@@ -242,7 +242,7 @@ if (isset($_GET['query'])) {
 
               <!-- Register btn -->
               <div class="col d-flex justify-content-end">
-                <button name="login-submit" id="login-submit" type="submit" class="btn btn-primary">Login</button>
+                <button name="login-submit" id="login-submit" type="button" class="btn btn-primary" onclick="login()">Login</button>
               </div>
 
             </div>
@@ -396,9 +396,6 @@ if (isset($_GET['query'])) {
 
         </div>
 
-        <!-- Margin bottom change to 0 -->
-        <hr class="mb-0">
-
     <!-- Here is the whole research study
                 This part includes the research study details
                     (titles, authors, abstract, view pdf, download file,
@@ -406,11 +403,11 @@ if (isset($_GET['query'])) {
 
         <?php
         if (mysqli_num_rows($result) > 0) {
+        echo '<hr class="mb-0">';
           while ($row = mysqli_fetch_array($result)) {
         ?>
-            <!-- Negative margin top removed -->
-            <div class="cards hBg
-                    border border-left-0
+            <div class="cards hBg 
+            border border-left-0
                             border-right-0
                             border-top-0
                             border-semilightblue">
@@ -420,29 +417,21 @@ if (isset($_GET['query'])) {
 
                 <!-- Research studies information -->
                 <div class="row">
-
-                  <!-- Column chage to auto -->
                   <div class="col">
                     <h4 class="sm-body-font-size"><?php echo $row["Title"] ?></h4><!-- Research title -->
 
                     <!-- Author name -->
                     <a href="#" class="cLink"><?php echo $row["Author"] ?></a>
-
-                    <p><?php echo $row['Abstract'] ?></p>
-
-                    <!-- Abstract contraction -->
-                    <!-- For read more and read less -->
-                    <p>Lorem ipsum
-                      <span id="dots">...</span>
-                      <!-- id "readMore" is not working properly when 2 or more research study displays -->
-                      <!-- <span id="<php echo $row['RS_ID'];?>"> dolor sit amet</span> -->
-                      <span id="readMore"> dolor sit amet</span>
-                      <a href="#" onclick="readAbstract()" id="readBtn" class="cLink">Read more...</a>
-
-                    </p>
-
-                    <!-- Read more and less link function -->
-                    <script src="../js/readAbstract_function.js"></script>
+                  
+                  <!-- Abstract contraction -->
+                  <p>
+                    <?php echo substr($row['Abstract'], 0, 250) ?>
+                    <span id="dots_<?php echo $row['RS_ID']; ?>">...</span>
+                    <span id="readMore_<?php echo $row['RS_ID']; ?>" style="display: none;">
+                    <?php echo substr($row['Abstract'], 250) ?></span>
+                    <a type="button" onclick="readAbstract(<?php echo $row['RS_ID'] ?>)" id="readBtn_<?php echo $row['RS_ID']; ?>" class="cLink">Read more...</a>
+                  </p>
+                  <!-- end of abstract -->
 
                     <!-- Statistics for small media -->
                     <p id="miniStats_<?php echo $row['RS_ID'] ?>"><small class="sm-show-stat">
@@ -521,14 +510,16 @@ if (isset($_GET['query'])) {
                             <!-- Make the hover color blue -->
 
                             <div class="cfont cs-2"><?php echo $row['Title'] ?></div><!-- research title -->
-                            <br>
-                            <div><?php echo $row['Author'] ?></div><!-- author name -->
+                            <div><a href="#"><?php echo $row['Author'] ?></a></div><!-- author name -->
 
                             <hr class="bg-muted">
 
                             <p class="text-uppercase">Abstract</p>
 
                             <p><?php echo $row['Abstract'] ?></p><!-- research abstract -->
+
+                            <!-- Read more and less link function -->
+                            <script src="../js/readAbstract_function.js"></script>
 
                           </div>
 
@@ -552,20 +543,18 @@ if (isset($_GET['query'])) {
 
                   <!-- Statistics for large media -->
 
-
-                  <!-- Column changed -->
                   <div class="col-2 sm-hide-stat">
-                    <div class="pt-2 text-ash">
-                      <p id="viewCounts_<?php echo $row['RS_ID'] ?>" class="text-center smaller">
+                    <div class=" pt-2 text-ash">
+                      <p id="viewCounts_<?php echo $row['RS_ID'] ?>" class="text-center small"><small>
                         <?php if ($row['Views'] === 0) {  echo '0';} else { echo $row['Views'];} ?>
-                        <br>Readers</p><!-- count of views -->
+                        <br>Readers</small></p><!-- count of views -->
 
                     </div>
 
                     <div class="pt-2 text-ash">
-                      <p id="downloadCounts_<?php echo $row['RS_ID'] ?>" class="text-center smaller">
+                      <p id="downloadCounts_<?php echo $row['RS_ID'] ?>" class="text-center small"><small>
                         <?php if ($row['Downloads'] === 0) { echo '0';} else { echo $row['Downloads'];} ?>
-                        <br>Downloads</p><!-- count of downloads -->
+                        <br>Downloads</small></p><!-- count of downloads -->
                     </div>
 
 
@@ -595,10 +584,11 @@ if (isset($_GET['query'])) {
             <?php if ($page > 1) { ?>
               <li class="page-item"><a class="page-link" href="search_page.php?page=<?php echo ($page - 1) ?>&query=<?php echo $search ?>">Previous</a></li>
             <?php } ?>
-            <?php for ($i = 1; $i < $number_pages; $i++) { ?>
-              <li class="page-itemactive"><a class="page-link" href="search_page.php?page=<?php echo $i ?>&query=<?php echo $search ?>"><?php echo $i ?></a></li>
+            <?php for ($i = 1; $i <= $number_pages; $i++) { ?>
+              <li <?php if($page == $i){?>class="page-item active" <?php } ?>>
+                <a class="page-link" href="search_page.php?page=<?php echo $i ?>&query=<?php echo $search ?>"><?php echo $i ?></a></li>
             <?php } ?>
-            <?php if ($i > $page) { ?>
+            <?php if (($i-1) > $page) { ?>
               <li class="page-item"><a class="page-link" href="search_page.php?page=<?php echo ($page + 1) ?>&query=<?php echo $search ?>">Next</a></li>
             <?php } ?>
           </ul>
@@ -669,6 +659,7 @@ if (isset($_GET['query'])) {
   <script src="../js/addCount.js"></script>
   <script src="../js/needToLogin.js"></script>
   <script src="../js/notVerified.js"></script>
+  <script src="../js/login.js"></script>
 </body>
 
 </html>

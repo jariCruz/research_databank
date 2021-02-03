@@ -34,7 +34,6 @@
       };
       xmlhttp.open("GET", "action.php?addViewsMini=" + RS_ID, true);
       xmlhttp.send();
-      window.open(url+'#toolbar=0','_blank', 'location=no');
     }
 
     //add count for downloads
@@ -47,5 +46,4 @@
       };
       xmlhttp.open("GET", "action.php?addDownloadsMini=" + RS_ID, true);
       xmlhttp.send();
-      window.open(url);
     }

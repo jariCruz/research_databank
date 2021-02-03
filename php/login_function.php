@@ -2,7 +2,7 @@
 include "server.php";
 
 if (isset($_POST['login-submit'])) {
-    $username = $_POST['form_uname'];//username from login form
+    $username = strtolower($_POST['form_uname']);//username from login form
     $password = $_POST['form_pass'];//password from login form
     $location = $_POST['redirect'];//link to redirect
     //IDs'
@@ -20,15 +20,21 @@ if (isset($_POST['login-submit'])) {
     //status
     $student_status = '';
     $professor_status = '';
+    //name
+    $admin_lastname = '';
 
     //student login info
-    $sql1 = "SELECT student_id, student_username, student_password, student_account_status 
-    FROM student_table WHERE student_username = '$username'";
+    $sql1 = "SELECT * 
+    FROM student_table 
+    WHERE LOWER(student_username) = '$username'";
     //professor login info
-    $sql2 = "SELECT professor_id, professor_username, professor_password, professor_account_status 
-    FROM professor_table WHERE professor_username = '$username'";
+    $sql2 = "SELECT * 
+    FROM professor_table WHERE 
+    LOWER(professor_username) = '$username'";
     //admin login info
-    $sql3 = "SELECT admin_id, admin_username, admin_password FROM admin_table WHERE admin_username = '$username'";
+    $sql3 = "SELECT * 
+    FROM admin_table 
+    WHERE LOWER(admin_username) = '$username'";
 
 
     if($result1 = $conn->query($sql1)){
@@ -54,31 +60,33 @@ if (isset($_POST['login-submit'])) {
             $admin_user = $row3['admin_username'];
             $admin_pass = $row3['admin_password'];
             $admin_id = $row3['admin_id'];
+            $admin_lastname = $row3['admin_lname'];
         }
     }
 
-    if ($username === $student_user && md5($password) === $student_pass) {
+    if ($username === strtolower($student_user) && md5($password) === $student_pass) {
         session_start();
         $_SESSION['user_id'] = $student_id;
         $_SESSION['status'] = $student_status;
         $_SESSION['user'] = "Student";
-        header("Location: $location");
+        echo "Error: " . $sql1 . "<br>" . $conn->error;
 
     } 
-    elseif ($username === $professor_user && md5($password) === $professor_pass) {
+    elseif ($username === strtolower($professor_user) && md5($password) === $professor_pass) {
         session_start();
         $_SESSION['user_id'] = $professor_id;
         $_SESSION['status'] = $professor_status;
         $_SESSION['user'] = "Professor";
-        header("Location: $location");
+        echo "Error: " . $sql2 . "<br>" . $conn->error;
     } 
-    elseif ($username === $admin_user && md5($password) === $admin_pass) {
+    elseif ($username === strtolower($admin_user) && md5($password) === $admin_pass) {
         session_start();
         $_SESSION['user_id'] = $admin_id;
         $_SESSION['status'] = 'admin';
         $_SESSION['user'] = "Admin";
-        header("Location: ../php/research_coordinator_page.php");
+        $_SESSION['lastname'] = $admin_lastname;
+        echo 'admin';
     }else {
-        echo 'Username and Password does not match!';
+        echo 'failed';
     }
 }

@@ -1,7 +1,7 @@
 function lessAlumnus() {
     var dots = document.getElementById("dotss");
     var moreText = document.getElementById("more");
-    var btnText = document.getElementById("form_alumnus");
+    var btnText = document.getElementById("form_alumnus_student");
 
 
     if (btnText.checked == true) {
@@ -18,4 +18,3 @@ function lessAlumnus() {
     }
 }
 
-  

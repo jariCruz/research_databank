@@ -231,7 +231,7 @@ require "header.php";
 
                           <!-- Register btn -->
                           <div class="col d-flex justify-content-end">
-                              <button name="login-submit" id="login-submit" type="submit" class="btn btn-primary">Login</button>
+                              <button name="login-submit" id="login-submit" type="submit" class="btn btn-primary" onclick="login()">Login</button>
                           </div>
                       
                       </div>
@@ -301,8 +301,6 @@ require "header.php";
   <!-- Content -->
   <div class="container">
     <div class="ml-md-5 mr-md-5 mb-5 p-5 text-center">
-
-    <!-- Information changed -->
       <h5 class="header-font subtitle-size-1">Our Goal</h5>
       <p>Is to lead aspiring researchers towards professionalism by sharing their studies on the entire campus.<br>And to access different kinds of researches for their studies or just simple curiosity.</p>
       <h5 class="header-font subtitle-size-1 pt-5">What is Research DB?</h5>
@@ -324,7 +322,6 @@ require "header.php";
       <h2 class="header-font">Bond With Us!</h2>
       <p>Explore, investigate, analyze, experiment, and test now.<br>
           Join the aspiring professional researchers at Bulacan State University - Sarmiento Campus.</p>
-    </div>
     </div>
   </div>
 
@@ -365,6 +362,6 @@ require "header.php";
 
 
 
-    
+<script src="../js/login.js"></script>
 </body>
 </html>

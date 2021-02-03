@@ -11,12 +11,18 @@ function validateInput(n, min) {//min is for the length that is accepted
   //validate the length
   if (vElement.length >= (min - 1)) {
     pn.className += " was-validated";
+    if(vElement.length >= (min - 1)){
+      pn.className.replace(/\bwas-validated\b/g, "");
+    }
+  }else {
+    pn.className.replace(/\bwas-validated\b/g, "");
   }
+  
 }
 // end of individual notification
 
 function uploadVal() {
-    
+    console.log(document.getElementById("form_keywords").value);
     var title = document.getElementById("form_title").value;
     var author = document.getElementById("form_author").value;
     var adviser = document.getElementById("form_adviser").value;
@@ -112,8 +118,14 @@ function uploadVal() {
                                           processData: false,
                                           success: function(response){
                                             //update research studies
-                                            $('#research-livesearch').html(response);
+                                            updateResearch();
                                             //reset field to '' after uploading success
+                                            swal({
+                                              title: "Upload success",
+                                              text: response,
+                                              icon: "success",
+                                              button: true,
+                                            });
                                             document.getElementById("form_title").value = '';
                                             document.getElementById("form_author").value = '';
                                             document.getElementById("form_adviser").value = '';
@@ -122,15 +134,21 @@ function uploadVal() {
                                             document.getElementById("form_year").value = '';
                                             document.getElementById("form_abstract").value = '';
                                             document.getElementById("form_file").value = '';
+
+                                            document.getElementById("form_title").className.replace(/\bwas-validated\b/g, "");
+                                            document.getElementById("form_author").className.replace(/\bwas-validated\b/g, "");
+                                            document.getElementById("form_adviser").className.replace(/\bwas-validated\b/g, "");
+                                            document.getElementById("form_course").className.replace(/\bwas-validated\b/g, "");
+                                            document.getElementById("form_keywords").className.replace(/\bwas-validated\b/g, "");
+                                            document.getElementById("form_year").className.replace(/\bwas-validated\b/g, "");
+                                            document.getElementById("form_abstract").className.replace(/\bwas-validated\b/g, "");
+                                            document.getElementById("form_file").className.replace(/\bwas-validated\b/g, "");
+
+                                            $('#form_file').next('.custom-file-label').html('Choose file...');
+                                            var input = document.querySelector('input[name=basic]');
+                                            var tagify = new Tagify(input);
+                                            tagify.removeAllTags.bind(tagify);
                                           }
-                                        }).
-                                        then((results)=>{
-                                            swal({
-                                              title: "Upload Success!",
-                                              text: "Research had been sucessfully uploaded.",
-                                              icon: "success",
-                                              button: true,
-                                            });
                                         });
                                             // var xmlhttp = new XMLHttpRequest();
                                             // xmlhttp.onreadystatechange = function() {
@@ -163,4 +181,31 @@ function uploadVal() {
             button: true,
           });
     }
+}
+
+//update research function
+function updateResearch() {
+  $(document).ready(function() {
+      function loadData(page) {
+        $.ajax({
+          url: "research_pagination.php",
+          type: "POST",
+          cache: false,
+          data: {
+            page_no: page
+          },
+          success: function(response) {
+            $("#research-content").html(response);
+          }
+        });
+      }
+      loadData();
+
+      // Pagination code
+      $(document).on("click", ".pagination li a", function(e) {
+        e.preventDefault();
+        var pageId = $(this).attr("id");
+        loadData(pageId);
+      });
+    });
 }
