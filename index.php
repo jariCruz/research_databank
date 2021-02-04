@@ -191,7 +191,8 @@ include "php/server.php";
               <!-- modal header -->
               <div class="modal-header">
 
-                  <h5 class="header-font">A student is registering...</h5>
+                  <!-- id added for alumnus -->
+                  <h5 class="header-font" id="student_header_create">A student is registering...</h5>
                   <button class="close" data-dismiss="modal">&times;</button>
               </div>
 
@@ -316,8 +317,9 @@ include "php/server.php";
                 <!-- Checkbox for alumnus -->
                 <div class="form-group mt-4">
 
+                    <!-- function name change -->
                     <input id="form_alumnus_student" name="form_alumnus_student" type="checkbox"
-                            onclick="lessAlumnus()"> I am an Alumnus.</input>
+                            onclick="moreAlumnus()"> I am an Alumnus.</input>
 
 
                 </div>
