@@ -1,0 +1,11 @@
+for research_pagination.php
+
+line 239..................... class="btn btn-outline-primary font-weigth-normal sm-btn-font-size cLink"><span class="fa fa-download></span> Download</a><!-- Download button -->
+line 243..................... class="btn btn-outline-primary font-weight-normal sm-btn-font-size cLink"><span class="fas fa-file-pdf"></span> View PDF</a><!-- View button -->';
+line 250..................... onclick="needToLoginDownload()" class="btn btn-outline-primary sm-btn-font-size cLink"><span class="fa fa-download"></span> Download</a><!-- Download button -->
+line 253..................... onclick="needToLoginView()" class="font-weight-normal btn btn-outline-primary sm-btn-font-size cLink"><span class="fas fa-file-pdf"></span> View PDF</a><!-- View button -->';
+
+line 272..................... $output.='<button type="button" onclick="addDownload('.$row["RS_ID"].',"download.php?file='.$row["File"].'")" class="btn btn-outline-dark font-weight-normal sm-btn-font-size"><span class="fa fa-download"></span> Download</button><!-- Download button -->
+line 276..................... <button type="submit" onclick="addView('.$row["RS_ID"].',"../Research_Studies/'.$row["File"].'")" class="btn btn-outline-dark font-weight-normal sm-btn-font-size"><span class="fas fa-file-pdf"></span> View PDF</button><!-- View button -->';
+line 280..................... <button type="button" onclick="needToLoginDownload()" class="btn btn-outline-dark font-weight-normal sm-btn-font-size"><span class="fa fa-download"></span> Download</button><!-- Download button -->
+line 284..................... <button type="submit" onclick="needToLoginView()" class="btn btn-outline-dark font-weight-normal sm-btn-font-size"><span class="fas fa-file-pdf"></span> View PDF</button><!-- View button -->';
