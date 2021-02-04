@@ -43,7 +43,75 @@
                         if (mysqli_num_rows($count_result) === 0) {
                             $output.= '';
                         } else {
-                            $output.='<!-- Filter Department -->
+                            $output.='<!-- Button list added -->
+                                <label>See List: </label>
+                                <button type="button" class="fa fa-file-text btn btn-outline-primary" data-toggle="modal" data-target="#seeList"></button>
+
+                                <div class="modal fade" id="seeList" role="dialog">
+                                  <div class="modal-dialog modal-dialog-scrollable">
+                                    <div class="modal-content">
+
+                                      <div class="modal-header">
+                                        <h4 class="header-font">Research Study List&ThickSpace;</h4>
+                                        <button type="button" class="fa fa-download btn btn-outline-primary" data-toggle="tooltip" title="Download research study list"></button>
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+
+                                      <!-- modal header -->
+                                      </div>
+                                      
+                                      <!-- modal and table added -->
+                                      <div class="modal-body">
+                                        <div class="table-responsive">
+                                          <table class="table table">
+
+                                            <thead>
+                                              <tr>
+                                                <th>Title</th>
+                                                <th>Author1</th>
+                                                <th>Author2</th>
+                                                <th>Year</th>
+                                                <th>Course</th>
+                                                <th>Adviser</th>
+                                                <th>Keywords</th>
+                                                <th>Views</th>
+                                                <th>Downloads</th>
+                                              </tr>
+                                            </thead>
+                                            <tbody>
+                                              <tr>
+                                                <td>Title</td>
+                                                <td>Author1</td>
+                                                <td>Author2</td>
+                                                <td>Year</td>
+                                                <td>Course</td>
+                                                <td>Adviser</td>
+                                                <td>Keywords</td>
+                                                <td>Views</td>
+                                                <td>Downloads</td>
+                                              </tr>
+                                            </tbody>
+                                          </table>
+                                        </div>
+
+
+                                      <!-- modal body -->
+                                      </div>
+                                    
+                                    <!-- modal content -->
+                                    </div>
+
+                                  <!-- modal dialog -->
+                                  </div>
+                                <!-- modal fade -->
+                                </div>
+
+
+
+
+                                <br>
+                                <br>
+                                <!-- Filter Department -->
                                 <label>Filter Department:</label>
 
                                 <br>
@@ -65,6 +133,26 @@
                                     
                                     <input type="checkbox" id="content">
                                     <label for="#content">Content</label>
+
+                                    <br>
+
+                                    <!-- Course and year added -->
+                                    <select class="btn btn-outline-primary">
+
+                                      <option value="">Course</option>
+                                      <option value="BSIT">BSIT</option>
+                                      <option value="EDUC">EDUC</option>
+                                      <option value="BM">BM</option>
+
+                                    </select>
+
+                                    <select class="btn btn-outline-primary">
+
+                                    <option value="">Year</option>
+                                    <option value="2014">2014</option>
+                                    <option value="2015">2015</option>
+
+                                  </select>
                                 </div>';
                          }
 
@@ -111,6 +199,9 @@
                     <!-- Author name -->
                     <a href="#" class="cLink">'.$row["Author"].'</a>
 
+                    <!-- Course and Year added -->
+                    <p>BSIT 2015</p>
+
                     <!-- Abstract contraction -->
                   <p>
                   '.substr($row["Abstract"], 0, 250).'
@@ -120,6 +211,9 @@
                     <a type="button" onclick="readAbstract('.$row["RS_ID"].')" id="readBtn_'.$row["RS_ID"].'" class="cLink">Read more...</a>
                   </p>
                   <!-- end of abstract -->
+
+                  <!-- Keywords -->
+                  <p>Keywords: FirstKeyword, SecondKeyword, ThirdKeyword</p>
 
                     <!-- Statistics for small media -->
                     <p id="miniStats_'.$row["RS_ID"].'"><small class="sm-show-stat">';
@@ -143,10 +237,10 @@
                       $output.='<a id="view_href_'.$row["RS_ID"].'" type="button" 
                                               onclick="addDownload('.$row["RS_ID"].',"download.php?file='.$row["File"].'")" 
                                               class="fa fa-download btn btn-outline-primary sm-btn-font-size cLink"> Download</a><!-- Download button -->
-                      
+                      <!-- view pdf icon changed -->
                                             <a id="download_href_'.$row["RS_ID"].'" type="button" 
                                               onclick="addView('.$row["RS_ID"].',"../Research_Studies/'.$row["File"].'")" 
-                                              class="fa fa-file btn btn-outline-primary sm-btn-font-size cLink"> View PDF</a><!-- View button -->';
+                                              class="fas fa-file-pdf btn btn-outline-primary sm-btn-font-size cLink"> View PDF</a><!-- View button -->';
 
                     } else {
 
@@ -154,9 +248,9 @@
                       
                                             <a id="view_href_'.$row["RS_ID"].'" type="button" 
                                               onclick="needToLoginDownload()" class="fa fa-download btn btn-outline-primary sm-btn-font-size cLink"> Download</a><!-- Download button -->
-                      
+                      <!-- view pdf icon changed -->
                                             <a id="download_href_'.$row["RS_ID"].'" type="button" 
-                                              onclick="needToLoginView()" class="fa fa-file btn btn-outline-primary sm-btn-font-size cLink"> View PDF</a><!-- View button -->';
+                                              onclick="needToLoginView()" class="fas fa-file-pdf btn btn-outline-primary sm-btn-font-size cLink"> View PDF</a><!-- View button -->';
 
                     }
 
@@ -178,14 +272,16 @@
                                   $output.='<button type="button" onclick="addDownload('.$row["RS_ID"].',"download.php?file='.$row["File"].'")" class="btn btn-outline-dark fa fa-download sm-btn-font-size"> Download</button><!-- Download button -->
                                   
                                                                     <!-- View PDF (logged in)-->
-                                                                    <button type="submit" onclick="addView('.$row["RS_ID"].',"../Research_Studies/'.$row["File"].'")" class="btn btn-outline-dark fa fa-file sm-btn-font-size"> View PDF</button><!-- View button -->';
+                                                                    <!-- view pdf icon changed -->
+                                                                    <button type="submit" onclick="addView('.$row["RS_ID"].',"../Research_Studies/'.$row["File"].'")" class="btn btn-outline-dark fas fa-file-pdf sm-btn-font-size"> View PDF</button><!-- View button -->';
                                 } else {
 
                                   $output.='<!-- Download PDF -->
                                                                     <button type="button" onclick="needToLoginDownload()" class="btn btn-outline-dark fa fa-download sm-btn-font-size"> Download</button><!-- Download button -->
                                   
                                                                     <!-- View PDF -->
-                                                                    <button type="submit" onclick="needToLoginView()" class="btn btn-outline-dark fa fa-file sm-btn-font-size"> View PDF</button><!-- View button -->';
+                                                                    <!-- view pdf icon changed -->
+                                                                    <button type="submit" onclick="needToLoginView()" class="btn btn-outline-dark fas fa-file-pdf sm-btn-font-size"> View PDF</button><!-- View button -->';
                                 }
 
                               $output.='</div>
@@ -202,16 +298,24 @@
                               
                                                           <div class="cfont cs-2">'.$row["Title"].'</div><!-- research title -->
                                                           <div><a href="#">'.$row["Author"].'</a></div><!-- author name -->
+
+                                                          <!-- Course and Year added -->
+                                                          <p>BSIT 2015</p>
+
                               
                                                           <hr class="bg-muted">
                               
                                                           <p class="text-uppercase">Abstract</p>
                               
                                                           <p>'.$row["Abstract"].'</p><!-- research abstract -->
+
+                                                          <!-- Keywords -->
+                                                          <p>Keywords: FirstKeyword, SecondKeyword, ThirdKeyword</p>
                               
                                                         </div>
                               
                                                         <div class="modal-footer">
+                                                        
                                                           <button type="button" class="btn btn-outline-danger sm-btn-font-size" data-dismiss="modal">Close</button>
                               
                                                         </div>

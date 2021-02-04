@@ -43,9 +43,12 @@ if (isset($_GET['query'])) {
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <!-- View PDF icon -->
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+
     <!-- Font Awesome Icon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    
 
 
     <!-- Font link -->
@@ -314,7 +317,7 @@ if (isset($_GET['query'])) {
     <div class="container-fluid">
         <div class="pt-3">
 
-            <!-- Nav tabs -->
+            <!-- Menu -->
             <ul class="nav nav-tabs">
                 <li class="nav-item">
                     <a class="nav-link sm-smaller-fs active" href="#overview">Overview</a>
@@ -332,6 +335,8 @@ if (isset($_GET['query'])) {
 
                     <a id="accountBtn" class="nav-link sm-smaller-fs dropdown-toggle" data-toggle="dropdown" href="#">Accounts</a>
                     <div class="dropdown-menu">
+                    <!-- Alumni link added -->
+                        <a class="dropdown-item sm-smaller-fs" href="#alumni" onclick="changeBtnTxt('accountBtn', 'Alumni')">Alumni</a>
                         <a class="dropdown-item sm-smaller-fs" href="#student" onclick="changeBtnTxt('accountBtn', 'Student')">Student</a>
                         <a class="dropdown-item sm-smaller-fs" href="#professor" onclick="changeBtnTxt('accountBtn', 'Professor')">Professor</a>
                         <a class="dropdown-item sm-smaller-fs" href="#admin" onclick="changeBtnTxt('accountBtn', 'Admin')">Admin</a>
@@ -341,7 +346,7 @@ if (isset($_GET['query'])) {
             </ul>
 
 
-            <!-- padding -->
+        <!-- padding -->
         </div>
 
 
@@ -352,10 +357,7 @@ if (isset($_GET['query'])) {
             <div id="overview" class="container tab-pane fade active show"><br>
                 <h4>Overview</h4>
                 <p>In this page, as a research coordinator, you can manage data. <br>You can manage research data and account, such as alumni, student, professor, and admin</p>
-
             </div>
-
-
 
             <!-- Research study upload tab -->
             <div id="researchUpload" class="container tab-pane fade"><br>
@@ -373,14 +375,13 @@ if (isset($_GET['query'])) {
 
                         <!-- Modal header -->
                         <div class="modal-content">
-                            <div class="modal-title">
+                        <!-- remove modal title -->
 
-                                <div class="modal-header">
-                                    <div class="modal-title header-font">Coordinator is uploading thesis...</div>
-                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                </div>
-
+                            <div class="modal-header">
+                                <div class="modal-title header-font">Coordinator is uploading thesis...</div>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
                             </div>
+
 
                             <!-- Modal details -->
 
@@ -412,24 +413,114 @@ if (isset($_GET['query'])) {
                                     </div>
 
 
-                                    <!-- Author field -->
+                                    <!-- Author input changed -->
 
-                                    <div class="form-group">
-                                        <label for="form_author">Author:</label>
-                                        <input type="text" name="form_author" id="form_author" placeholder="Author" 
-                                        class="form-control" minlength="5" maxlength="100" 
-                                        onkeypress="validateInput('form_author', '5')" required>
+                                    <!-- Name -->
+                                    
+                                    <!------------------------------------
+                                    -    I'll add script for add author  -
+                                    -                        by Webster  -
+                                    ------------------------------------->
+                                    <!-- label moved -->
+                                    <label for="form_author1_fname">Author:&ThickSpace;<button type="button" class="btn btn-outline-primary" onclick="addAuthor()">+</button></label>
+                                    <div class="form-row" id="author1">
+                                        
+                                        <!-- Forename field -->
+
+                                        <div class="form-group col-sm-5 needs-validation"> 
+
+                                            <input type="text"
+                                                    class="form-control"
+                                                    id="form_author1_fname"
+                                                    placeholder="Forename"
+                                                    name="form_author1_fname"
+                                                    minlength="2"
+                                                    maxlength="30"
+                                                    required>                    
+
+
+                                        </div>
+
+                                        <!-- Middle initial field -->
+
+                                        <div class="form-group col-sm-2 needs-validation">
+                                            <!-- label removed -->
+                                            <input type="text"
+                                                    name="form_author1_mi"
+                                                    id="form_author1_mi"
+                                                    placeholder="M.I."
+                                                    class="form-control"
+                                                    maxlength="5">
+
+                                        </div>
+
+                                        <!-- Surname field -->
+
+                                        <div class="form-group col-sm-5 needs-validation">
+
+                                            <!-- label removed -->
+                                            <input type="text"
+                                                    name="form_author1_sname"
+                                                    id="form_author1_sname"
+                                                    placeholder="Surname"
+                                                    class="form-control"
+                                                    maxlength="30"
+                                                    minlength="1"
+                                                    required>
+                                        </div>
 
                                     </div>
+                                    
+                                
+                                    <!-- Adviser input changed -->
 
-                                    <!-- Adviser field -->
+                                    <!-- Adviser Name -->
+                                    <!-- label moved -->
+                                    <label for="form_adviser_fname">Adviser:</label>
+                                    <div class="form-row">
+                                        
+                                        <!-- Forename field -->
 
-                                    <div class="form-group">
+                                        <div class="form-group col-sm-5 needs-validation">
+                                        
+                                            <input type="text"
+                                                    class="form-control"
+                                                    id="form_adviser_fname"
+                                                    placeholder="Forename"
+                                                    name="form_adviser_fname"
+                                                    minlength="2"
+                                                    maxlength="30"
+                                                    required>                    
 
-                                        <label for="form_adviser">Adviser:</label>
-                                        <input type="text" name="form_adviser" id="form_adviser" placeholder="Adviser" 
-                                        class="form-control" maxlength="60" minlength="5" 
-                                        onkeypress="validateInput('form_adviser', '5')" required>
+
+                                        </div>
+
+                                        <!-- Middle initial field -->
+
+                                        <div class="form-group col-sm-2 needs-validation">
+                                        <!-- label removed -->
+                                            <input type="text"
+                                                    name="form_adviser_mi"
+                                                    id="form_adviser_mi"
+                                                    placeholder="M.I."
+                                                    class="form-control"
+                                                    maxlength="5">
+
+                                        </div>
+
+                                        <!-- Surname field -->
+
+                                        <div class="form-group col-sm-5 needs-validation">
+                                        <!-- label removed -->
+                                            <input type="text"
+                                                    name="form_adviser_sname"
+                                                    id="form_adviser_sname"
+                                                    placeholder="Surname"
+                                                    class="form-control"
+                                                    maxlength="30"
+                                                    minlength="1"
+                                                    required>
+                                        </div>
 
                                     </div>
 
@@ -542,6 +633,8 @@ if (isset($_GET['query'])) {
                 </div>
 
 
+
+
                 <!-- Research study upload tab -->
             </div>
 
@@ -552,7 +645,7 @@ if (isset($_GET['query'])) {
 
                 <!-- Search bar -->
                 <div class="bg-muted
-                        border border-primary
+                            border border-primary
                             border-left-0
                             border-right-0">
 
@@ -561,11 +654,13 @@ if (isset($_GET['query'])) {
                             <div class="input-group-prepend py-4 w-100 mw-40rem">
 
                                     <button id="research-search-button" onclick="researchBtn()" 
-                                    class="btn btn-outline-primary sm-btn-font-size">Search</button>
+                                            class="btn btn-outline-primary sm-btn-font-size">Search</button>
+
                                     <input type="hidden" name="page" value="<?php echo 1 ?>">
 
                                     <input id="rs-input" name="query" 
-                                    class="form-control" type="text" autocomplete="off" required>
+                                            class="form-control" type="text" autocomplete="off" required>
+
                                     <button type="reset" class="btn btn-default fa fa-remove">
                             </div>
 
@@ -575,12 +670,308 @@ if (isset($_GET['query'])) {
                 <!-- Main content -->
             <div id="research-content">
                 <!-- contents was on research_pagination.php -->
+                
             </div>
                 <!-- End of Main content -->
 
                 <!-- Research study list tab -->
             </div>
 
+            <!-- Alumni tab added -->
+
+            <!-- Alumni tab -->
+            <div id="alumni" class="tab-pane fade"><br>
+
+                <!-- Search bar -->
+                <div class="bg-muted
+                            border border-primary
+                            border-left-0
+                            border-right-0">
+                    <form action="research_coodinator_page.php" method="get" autocomplete="off">
+
+                        <div class="input-group d-flex justify-content-center">
+
+                            <div class="input-group-prepend py-4 w-100 mw-40rem">
+                                <form action="#">
+
+                                    <button class="btn btn-outline-primary sm-btn-font-size" type="submit">Search</button>
+                                    <input type="hidden">
+
+                                    <input required id="search-input" name="query" class="form-control" type="text">
+                                    <button type="reset" class="btn btn-default fa fa-remove">
+                                </form>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
+                <div id="updateStatus">
+                <!-- Main content student -->
+                <div class="row mt-3">
+                    <!-- Select sql for student -->
+                    <?php
+                    $sql_student = "SELECT * 
+                    FROM student_table 
+                    WHERE student_account_status = 'pending'
+                    ORDER BY student_lname ASC
+                    LIMIT $start, $limit";
+                    $result_student = $conn->query($sql_student);
+                    //this sql is for getting the number of results
+                    $sql_count_student = " SELECT * 
+                    from student_table 
+                    where student_account_status = 'pending'";
+                    $count_result_student = mysqli_query($conn, $sql_count_student);
+                    $number_pages_student = ceil(mysqli_num_rows($count_result_student) / $limit);
+
+                    ?>
+                    <!-- first column -->
+                        <div class="col-sm-3 sm-hide">
+
+                            <p><?php if (mysqli_num_rows($result_student) > 0) { 
+                            echo mysqli_num_rows($result_student);
+                            } else {
+                                echo '0';
+                            } ?> Results</p>
+                            <hr>
+
+                            <!-- Account Status -->
+                            <label>Account Status:</label>
+                            <div class="dropdown dropright">
+                                <button class="btn btn-outline-secondary dropdown-toggle 
+                                        mw-btn-150p" id="alumniAccountStatus" data-toggle="dropdown">Select</button>
+
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#" onclick="changeBtnTxt('alumniAccountStatus', 'Pending')">Pending</a>
+
+                                    <a class="dropdown-item" href="#" onclick="changeBtnTxt('alumniAccountStatus', 'Verified')">Verified</a>
+
+                                    <a class="dropdown-item" href="#" onclick="changeBtnTxt('alumniAccountStatus', 'Denied')">Denied</a>
+
+                                </div>
+
+
+                            </div>
+
+
+                            <br>
+
+                            <!-- Sort name -->
+                        <?php if(mysqli_num_rows($result_student) !== 0){ ?>
+                            <label class="mt-2 mb-2">Sort Name:</label>
+
+
+                            <div class="dropdown dropright">
+                                <button class="btn btn-outline-secondary dropdown-toggle
+                                        mw-btn-150p" id="alumniSort" data-toggle="dropdown">Select</button>
+
+                                <div class="dropdown-menu">
+                                    <a class="dropdown-item" href="#" onclick="changeBtnTxt('alumniSort', 'Ascending')">Ascending</a>
+
+                                    <a class="dropdown-item" href="#" onclick="changeBtnTxt('alumniSort', 'Descending')">Descending</a>
+
+                                </div>
+
+                            </div>
+
+                            <br>
+
+                            <!-- Filter Course -->
+                            <label>Filter Course:</label>
+
+                            <br>
+                            <input type="checkbox" id="bsit">
+                            <label for="#bsit">BSIT</label>
+
+                            <br>
+                            <input type="checkbox" id="educ">
+                            <label for="#educ">EDUC</label>
+
+
+                            <br>
+                            <input type="checkbox" id="educ">
+                            <label for="#bm">BM</label>
+
+                        <?php }else { echo ''; } ?>
+
+
+                            <!-- first column -->
+                        </div>
+
+                    <!-- second column -->
+                    <div class="col">
+                        <?php
+                        if (mysqli_num_rows($result_student) > 0) { ?>
+                            <p>Alumni Pending...</p>
+                            <hr>
+
+                        <?php while ($row_student = mysqli_fetch_array($result_student)) { ?>
+
+                        
+
+                                <!-- alumni account starts here -->
+                                <!-- Margin top added and col set to 5 -->
+                                <div class="row mt-3" id="border-bg">
+
+                                    <!-- Delete button added -->
+
+                                    <!-- col changed -->
+                                    <div class="col-sm-8">
+
+                                        <button type="button" class="fa fa-trash btn btn-danger ml-0 mb-2" data-toggle="tooltip" title="Delete"></button>
+
+                                        <p>Name: <?php echo $row_student['student_lname']; ?>,
+                                            <?php echo $row_student['student_fname'];  ?> 
+                                            <?php echo $row_student['student_mi'] ?></p>
+                                        <p>CYS: <?php echo $row_student['student_course']; ?></p>
+                                        <p>Address: <?php echo $row_student['student_address'] ?></p>
+
+
+                                    </div>
+
+                                    <div class="col-sm-3">
+                                        <!-- Display this for pending section -->
+
+                                        <button onclick="denyStudent(<?php echo $row_student['student_id']; ?>)" 
+                                        class="btn btn-danger w-btn-acc sm-btn-font-size">Deny</button>
+                                        <button onclick="verifyStudent(<?php echo $row_student['student_id']; ?>)" 
+                                        class="btn btn-primary w-btn-acc sm-btn-font-size">Verify</button>
+
+
+                                        <!-- display this for verified section -->
+                                        <!--
+                                        <div class="alert alert-info">
+                                            <strong>Verified!</strong>
+                                        </div>
+                                        -->
+                                        <!-- Display this for denied section -->
+                                        <!--
+
+                                        <div class="alert alert-danger">
+                                            <strong>Denied!</strong>
+                                        </div>
+
+                                        -->
+                                        <!-- ********************************* -->
+                                        <!--  Remove the two <br> tags below   -->
+                                        <!-- when pending section isn't in use -->
+                                        <!-- ********************************* -->
+
+                                        <br>
+                                        <br>
+
+                                        <!-- Identification card link modified -->
+                                        <div class="d-flex justify-content-center">
+                                            <a href="#" class="fa fa-id-card" data-target="#identification_card_<?php echo $row_student['student_id']; ?>" data-toggle="modal"> See identification card</a>
+                                        </div>
+
+                                        <!-- modal -->
+                                        <div class="modal fade" id="identification_card_<?php echo $row_student['student_id']; ?>">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+
+                                                    <!-- modal header -->
+                                                    <div class="modal-header">
+                                                        <button class="close fa fa-close" data-dismiss="modal"></button>
+                                                    </div>
+
+                                                    <div id="id_content_<?php echo $row_student['student_id']; ?>" class="carousel slide">
+
+                                                        <!-- indicators -->
+                                                        <ul class="carousel-indicators">
+                                                            <li data-target="id_content_<?php echo $row_student['student_id']; ?>" data-slide-to="0" class="active"></li>
+                                                            <li data-target="id_content_<?php echo $row_student['student_id']; ?>" data-slide-to="1"></li>
+                                                        </ul>
+
+                                                        <!-- slideshow -->
+                                                        <div class="carousel-inner">
+
+                                                            <div class="carousel-item active">
+
+                                                                <?php
+                                                                $sname = $row_student['student_lname'];
+                                                                $fname =  $row_student['student_fname'];
+                                                                $mi = $row_student['student_mi'];
+                                                                $fullname = $sname . ' ' . $fname . ' ' . $mi . ' '; ?>
+                                                                <img class="mw-100 mh-100" src="../Student_ID/<?php echo str_replace(' ', '_', $fullname.'/'); ?><?php echo $row_student['student_id_front']; ?>" alt="identification card front" width="500" height="500">
+                                                            </div>
+
+                                                            <div class="carousel-item">
+                                                                <img class="mw-100 mh-100" src="../Student_ID/<?php echo str_replace(' ', '_', $fullname.'/'); ?>/<?php echo $row_student['student_id_back']; ?>" alt="identification card back" width="500" height="500">
+                                                            </div>
+
+
+                                                        </div>
+
+                                                        <!-- left and right controls -->
+                                                        <a class="carousel-control-prev" href="#id_content_<?php echo $row_student['student_id']; ?>" data-slide="prev">
+                                                            <span class="fa fa-chevron-left" style="color: #000000"></span>
+                                                        </a>
+
+                                                        <a class="carousel-control-next" href="#id_content_<?php echo $row_student['student_id']; ?>" data-slide="next">
+                                                            <span class="fa fa-chevron-right" style="color: #000000"></span>
+                                                        </a>
+
+                                                    </div>
+
+                                                    <!-- footer -->
+                                                    <div class="modal-footer">
+                                                        <button class="btn btn-outline-danger" data-dismiss="modal">Close</button>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+                                    <!-- alumni account ends here -->
+                                </div>
+
+                        <?php }
+                        }else{
+                            echo "No Results Found";
+                        }
+                            
+                        ?>
+
+                        <!-- Pagination -->
+
+                        <div class="container mt-3">
+
+                            <ul class="pagination justify-content-center">
+                                <?php if ($page > 1) { ?>
+                                  <li class="page-item"><a class="page-link" href="research_coordinator_page.php?page=<?php echo ($page - 1) ?>">Previous</a></li>
+                                <?php } ?>
+                                <?php for ($i = 1; $i <= $number_pages_student; $i++) { ?>
+                                  <li <?php if($page == $i){?>class="page-item active" <?php } ?>>
+                                    <a class="page-link" href="research_coordinator_page.php?page=<?php echo $i ?>"><?php echo $i ?></a></li>
+                                <?php } ?>
+                                <?php if (($i-1) > $page) { ?>
+                                  <li class="page-item"><a class="page-link" href="research_coordinator_page.php=<?php echo ($page + 1) ?>">Next</a></li>
+                                <?php } ?>
+                            </ul>
+
+                        </div>
+
+
+                        <!-- second column -->
+                    </div>
+
+
+
+                <!-- row -->
+                </div>
+                <!-- End of main content student -->
+                </div>
+
+                <!-- End alumni tab -->
+            </div>
 
             <!-- Student tab -->
             <div id="student" class="tab-pane fade"><br>
@@ -678,7 +1069,7 @@ if (isset($_GET['query'])) {
 
                             <br>
 
-                            <!-- Filter Department -->
+                            <!-- Filter Course -->
                             <label>Filter Course:</label>
 
                             <br>
@@ -688,6 +1079,11 @@ if (isset($_GET['query'])) {
                             <br>
                             <input type="checkbox" id="educ">
                             <label for="#educ">EDUC</label>
+
+                            <!-- BM added -->
+                            <br>
+                            <input type="checkbox" id="bm">
+                            <label for="#bm">BM</label>
 
                         <?php }else { echo ''; } ?>
 
@@ -709,9 +1105,17 @@ if (isset($_GET['query'])) {
                         <!-- student account starts here -->
                                 <!-- Margin top added and col set to 5 -->
                                 <div class="row mt-3" id="border-bg">
-                                    <div class="col-sm-5">
-
-
+                                    
+                                    <!-- Delete button and move student to alumni added -->
+                                    
+                                    <!-- col changed -->
+                                    <div class="col-sm-8">
+                                        <div class="row ml-0 mb-2">
+                                            <button type="button" class="fa fa-trash btn btn-danger" data-toggle="tooltip" title="Delete"></button>
+                                            <span>&ThickSpace;</span>
+                                            <button type="button" class="fa fa-graduation-cap btn btn-warning" data-toggle="tooltip" title="Move student to alumni"></button>
+                                        </div>
+                                        
                                         <p>Name: <?php echo $row_student['student_lname']; ?>,
                                             <?php echo $row_student['student_fname'];  ?> 
                                             <?php echo $row_student['student_mi'] ?></p>
@@ -721,7 +1125,8 @@ if (isset($_GET['query'])) {
 
                                     </div>
 
-                                    <div class="col-sm-4">
+                                    <!-- col changed -->
+                                    <div class="col-sm-3">
                                         <!-- Display this for pending section -->
 
                                         <button onclick="denyStudent(<?php echo $row_student['student_id']; ?>)" 
@@ -732,18 +1137,18 @@ if (isset($_GET['query'])) {
 
                                         <!-- display this for verified section -->
                                         <!--
-                                <div class="alert alert-info">
-                                    <strong>Verified!</strong>
-                                </div>
-                            -->
+                                        <div class="alert alert-info">
+                                            <strong>Verified!</strong>
+                                        </div>
+                                         -->
                                         <!-- Display this for denied section -->
                                         <!--
 
-                                <div class="alert alert-danger">
-                                    <strong>Denied!</strong>
-                                </div>
+                                        <div class="alert alert-danger">
+                                            <strong>Denied!</strong>
+                                        </div>
 
-                            -->
+                                        -->
                                         <!-- ********************************* -->
                                         <!--  Remove the two <br> tags below   -->
                                         <!-- when pending section isn't in use -->
@@ -752,7 +1157,10 @@ if (isset($_GET['query'])) {
                                         <br>
                                         <br>
 
-                                        <a href="#" data-target="#identification_card_<?php echo $row_student['student_id']; ?>" data-toggle="modal">See identification card <span class="fa fa-id-card"></span></a>
+                                        <!-- Identification card link modified -->
+                                        <div class="d-flex justify-content-center">
+                                            <a href="#" class="fa fa-id-card" data-target="#identification_card_<?php echo $row_student['student_id']; ?>" data-toggle="modal"> See identification card</a>
+                                        </div>
 
                                         <!-- modal -->
                                         <div class="modal fade" id="identification_card_<?php echo $row_student['student_id']; ?>">
@@ -966,11 +1374,15 @@ if (isset($_GET['query'])) {
 
                             <br>
                             <input type="checkbox" id="bsit">
-                            <label for="#bsit">BSIT</label>
+                            <label for="#bsit">IIT</label>
 
                             <br>
                             <input type="checkbox" id="educ">
                             <label for="#educ">EDUC</label>
+
+                            <br>
+                            <input type="checkbox" id="bm">
+                            <label for="#bm">BM</label>
                         <?php } ?>
 
 
@@ -994,9 +1406,12 @@ if (isset($_GET['query'])) {
                         ?>
                                 <!-- Margin top added and col set to 5 -->
                                 <div class="row mt-3" id="border-bg">
-                                    <div class="col-sm-5">
 
+                                    
+                                    <!-- col changed -->
+                                    <div class="col-sm-8">
 
+                                        <button type="button" class="fa fa-trash btn btn-danger ml-0 mb-2" data-toggle="tooltip" title="Delete"></button>
                                         <p>Name: <?php echo $row_professor['professor_lname']; ?>, <?php echo $row_professor['professor_fname'] . ' ' . $row_professor['professor_mi']; ?></p>
                                         <p>Department: <?php echo $row_professor['professor_department']; ?></p>
                                         <p>Address: <?php echo $row_professor['professor_address'] ?>.</p>
@@ -1004,7 +1419,8 @@ if (isset($_GET['query'])) {
 
                                     </div>
 
-                                    <div class="col-sm-4">
+                                    <!-- col changed -->
+                                    <div class="col-sm-3">
                                         <!-- Display this for pending section -->
 
                                         <button onclick="denyProfessor(<?php echo $row_professor['professor_id'] ?>)" class="btn btn-danger w-btn-acc sm-btn-font-size">Deny</button>
@@ -1013,18 +1429,18 @@ if (isset($_GET['query'])) {
 
                                         <!-- display this for verified section -->
                                         <!--
-                                <div class="alert alert-info">
-                                    <strong>Verified!</strong>
-                                </div>
-                            -->
+                                        <div class="alert alert-info">
+                                            <strong>Verified!</strong>
+                                        </div>
+                                        -->
                                         <!-- Display this for denied section -->
                                         <!--
 
-                                <div class="alert alert-danger">
-                                    <strong>Denied!</strong>
-                                </div>
+                                        <div class="alert alert-danger">
+                                            <strong>Denied!</strong>
+                                        </div>
 
-                            -->
+                                        -->
                                         <!-- ********************************* -->
                                         <!--  Remove the two <br> tags below   -->
                                         <!-- when pending section isn't in use -->
@@ -1033,7 +1449,12 @@ if (isset($_GET['query'])) {
                                         <br>
                                         <br>
 
-                                        <a href="#" data-target="#identification_card_<?php echo $row_professor['professor_id']; ?>" data-toggle="modal">See identification card <span class="fa fa-id-card"></span></a>
+                                        
+                                        <!-- Identification card link modified -->
+                                        <div class="d-flex justify-content-center">
+                                            <a href="#" class="fa fa-id-card" data-target="#identification_card_<?php echo $row_professor['professor_id']; ?>" data-toggle="modal"> See identification card</a>
+                                        </div>
+
 
                                         <!-- modal -->
                                         <div class="modal fade" id="identification_card_<?php echo $row_professor['professor_id']; ?>">
@@ -1349,24 +1770,19 @@ if (isset($_GET['query'])) {
                              <!-- output data of each row -->
                             <?php while ($row_admin = mysqli_fetch_array($result_admin)) {
                         ?>
-                        <div class="row" id="border-bg">
-                            <div class="col-sm-8">
 
+                        <!-- You forgot to add the margin -->
+                        <div class="row mt-3" id="border-bg">
+                        <!-- col change -->
+                            <div class="col-sm-8">
+                                <!-- Remove button added -->
+                                <button type="button" class="fa fa-trash btn btn-danger ml-0 mb-2" data-toggle="tooltip" title="Delete"></button>
 
                                 <p>Name: <?php echo $row_admin['admin_lname']; ?>, <?php echo $row_admin['admin_fname'].' '.$row_admin['admin_mi']; ?></p>
                                 <p>Username: <?php echo $row_admin['admin_username']; ?></p>
-
-
+                                
                             </div>
 
-
-                            <!-- ********************************* -->
-                            <!--  Remove the two <br> tags below   -->
-                            <!-- when pending section isn't in use -->
-                            <!-- ********************************* -->
-
-                            <br>
-                            <br>
 
 
                             <!-- admin account ends here -->
